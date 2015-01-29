@@ -38,6 +38,7 @@ paper-dropdown::shadow #scroller {
   width: 96%;
   margin: $list-item-gap;
   transition: 300ms ease-in-out;
+  padding: 6px;
 }
 
 .availability-item {

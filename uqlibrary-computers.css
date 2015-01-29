@@ -728,8 +728,12 @@ paper-fab {
   paper-fab core-icon {
     color: white; }
 
-paper-action-dialog paper-button.colored {
+paper-button.colored {
   color: #007e9e; }
+
+paper-button[raised].colored {
+  background: #007e9e;
+  color: white; }
 
 .card {
   display: block;
@@ -841,7 +845,8 @@ paper-dropdown::shadow #scroller {
 #branchWrapper {
   width: 96%;
   margin: 8px;
-  transition: 300ms ease-in-out; }
+  transition: 300ms ease-in-out;
+  padding: 6px; }
 
 .availability-item {
   border-bottom: 1px solid whitesmoke;
