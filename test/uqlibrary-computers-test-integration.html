@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>uqlibrary-computers-integration</title>
+  <title>uqlibrary-computers-unit</title>
 
+  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
   <link rel="import" href="../uqlibrary-computers.html">
@@ -17,37 +18,32 @@
   window.addEventListener('polymer-ready', function() {
 
     var computersEl = document.querySelector('uqlibrary-computers');
-    computersEl.$.computersApi.$.list.useMockData = true;
-
+    computersEl.$.computersApi.$.computers.useMockData = true;
     describe('uqlibrary-computers', function () {
       before(function () {
 
       });
 
       describe('uqlibrary-computers-list', function() {
-
         it('should display computers', function(done) {
 
           computersEl.addEventListener('uqlibrary-computers-loaded', function(){
-            //wait 2 seconds until data is loaded
+
             setTimeout(function() {
+              expect(computersEl.computers.length).to.be.equal(computersEl.$.computersApi.computers.length);
 
-              var _items = computersEl.$.list.data;
-              expect(_items.length).to.be.equal(computersEl.computers.length);
+              expect(computersEl.selected.library).to.be.equal(computersEl.$.computersApi.computers[0].library);
+              expect(computersEl.selected).to.have.deep.property('availability[0].Available', computersEl.$.computersApi.computers[0].availability[0].Available);
 
-              expect(_items[0].name).to.be.equal(computersEl.computers[0].name);
-              var dayString = moment().format('YYYY-MM-DD');
-              var _open = moment(dayString+ ' ' + computersEl.computers[0].open);
-              var _close = moment(dayString+ ' ' + computersEl.computers[0].close);
-              var _now = moment();
-              expect(_items[0].times).to.be.equal(_open.format("h:mm a") + ' - ' + _close.format("h:mm a"));
+              // change branch
+              computersEl.branch = 3;
+              // wait for data is loaded
+              setTimeout(function() {
+                expect(computersEl.selected.library).to.be.equal(computersEl.$.computersApi.computers[3].library);
+                expect(computersEl.selected).to.have.deep.property('availability[0].Available', computersEl.$.computersApi.computers[3].availability[0].Available);
+                done();
 
-              expect(_items[0].class).to.be.equal( ((_open.isBefore(_now) && _close.isAfter(_now)) ? 'open' : 'closed') );
-
-              expect(_items[1].name).to.be.equal(computersEl.computers[1].name);
-              expect(_items[1].times).to.be.equal('Open 24 computers');
-              done();
-              
+              }, 1000);
             }, 2000);
           });
 

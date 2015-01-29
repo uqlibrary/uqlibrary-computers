@@ -35,7 +35,7 @@ Element providing an overview for current libraries working computers
     <uqlibrary-api-account id="account"></uqlibrary-api-account>
     <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
 
-    <uqlibrary-ga id="ga" appName="computers"></uqlibrary-ga>
+    <uqlibrary-ga id="ga" appName="Computers"></uqlibrary-ga>
 
     <core-drawer-panel id="drawerPanel" drawerWidth="256px" responsiveWidth="768px">
       <core-header-panel drawer id="drawer">
@@ -171,6 +171,7 @@ Element providing an overview for current libraries working computers
       branchChanged: function () {
         this.$.branches.opened = false;
         this.selected = this.computers[this.branch];
+        this.$.ga.addEvent('Library Selected', this.selected.library);
       }
 
     });
