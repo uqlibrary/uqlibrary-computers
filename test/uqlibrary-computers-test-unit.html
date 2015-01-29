@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>uqlibrary-computers-unit</title>
+
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../uqlibrary-computers.html">
+</head>
+<body>
+
+<uqlibrary-computers autoload="false"></uqlibrary-computers>
+
+<script>
+  window.addEventListener('polymer-ready', function() {
+
+    var computers = [
+      {
+        "code": "arm",
+        "name": "Architecture / Music Library",
+        "abbr": "Arch Music",
+        "url": "http://www.library.uq.edu.au/locations/architecture-music-library",
+        "open": "09:00:00",
+        "close": "17:00:00",
+        "rev": "0"
+      },
+      {
+        "code": "bio",
+        "name": "Biological Sciences Library",
+        "abbr": "Biol Sci",
+        "url": "http://www.library.uq.edu.au/locations/biological-sciences-library",
+        "open": "00:00:00",
+        "close": "24:00:00",
+        "rev": "0",
+        "notes": "Walk in access from 7am to 8pm. Entry after 8pm UQ ID card necessary."
+      }
+    ];
+
+    var computersEl = document.querySelector('uqlibrary-computers');
+    describe('uqlibrary-computers', function () {
+      before(function () {
+
+      });
+
+      describe('uqlibrary-computers-list', function() {
+        it('should display computers', function(done) {
+
+          computersEl.addEventListener('uqlibrary-computers-loaded', function(){
+            var _items = computersEl.$.list.data;
+            expect(_items.length).to.be.equal(computers.length);
+
+            expect(_items[0].name).to.be.equal(computers[0].name);
+
+            var dayString = moment().format('YYYY-MM-DD');
+            var _open = moment(dayString+ ' ' + this.computers[0].open);
+            var _close = moment(dayString+ ' ' + this.computers[0].close);
+            expect(_items[0].times).to.be.equal(_open.format("h:mm a") + ' - ' + _close.format("h:mm a"));
+
+            expect(_items[1].name).to.be.equal(computers[1].name);
+            expect(_items[1].times).to.be.equal('Open 24 computers');
+            done();
+          });
+
+          computersEl.computers = computers;
+        });
+      });
+
+    });
+
+  });
+</script>
+
+</body>
+</html>

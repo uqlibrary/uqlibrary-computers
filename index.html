@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <title>computers</title>
+  <script>
+    function isIE () {
+      var myNav = navigator.userAgent.toLowerCase();
+      return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+    }
+
+    if (! ('registerElement' in document
+      && 'createShadowRoot' in HTMLElement.prototype
+      && 'import' in document.createElement('link')
+      && 'content' in document.createElement('template'))) {
+      // IE 8 and 9 throw errors if you try to include webcomponents.js, which prevents other user messages working
+      if (!isIE() || isIE () > 9) {
+        document.write('<script src="../uqlibrary-elements/0.5.4/webcomponentsjs/webcomponents.js"><\/script>');
+      }
+    }
+  </script>
+  <link rel="import" href="uqlibrary-computers.html">
+  <link rel="stylesheet" href="../uqlibrary-elements/resources/theme/app.css">
+</head>
+<body>
+<div id="loader" class="subhead">
+  <p>Loading...</p>
+  <svg class="circular">
+    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"/>
+  </svg>
+</div>
+<uqlibrary-computers unresolved></uqlibrary-computers>
+
+<script>
+  window.addEventListener('polymer-ready', function() {
+    document.body.removeChild(document.getElementById('loader'));
+  });
+</script>
+
+</body>
+</html>
