@@ -36,7 +36,7 @@ Element providing an overview for current libraries working computers
     <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
 
     <uqlibrary-ga id="ga" appName="Computers"></uqlibrary-ga>
-
+    <core-localstorage name="uqlibrary-computers-storage" id="localStorage" value="{{branch}}"></core-localstorage>
     <core-drawer-panel id="drawerPanel" drawerWidth="256px" responsiveWidth="768px">
       <core-header-panel drawer id="drawer">
         <uqlibrary-menu account="{{user}}"></uqlibrary-menu>
@@ -116,7 +116,7 @@ Element providing an overview for current libraries working computers
         autoload: true
       },
       user: {},
-      branch: 0,
+      branch: null,
       selected: 0,
 
       ready: function() {
@@ -132,6 +132,9 @@ Element providing an overview for current libraries working computers
 
         this.$.computersApi.addEventListener('uqlibrary-api-computer-availability-loaded', function(e) {
           that.computers = e.detail;
+          if(that.branch == null) {
+            that.branch = 0;
+          }
         });
         if(this.autoload){
           this.$.account.get();
@@ -168,10 +171,13 @@ Element providing an overview for current libraries working computers
         this.$.branches.opened = true;
       },
 
-      branchChanged: function () {
-        this.$.branches.opened = false;
-        this.selected = this.computers[this.branch];
-        this.$.ga.addEvent('Library Selected', this.selected.library);
+      branchChanged: function (oldValue, newValue) {
+        if(oldValue != null) {
+          this.$.branches.opened = false;
+          this.selected = this.computers[this.branch];
+          this.$.ga.addEvent('Library Selected', this.selected.library);
+        }
+
       }
 
     });
