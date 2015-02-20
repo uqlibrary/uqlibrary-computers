@@ -55,7 +55,10 @@ Element providing an overview for current libraries working computers
               <div id="branchSelect" relative on-tap="{{onTapSelectBranch}}">
                 <div horizontal layout center>
                   <div flex>{{selected.library}}</div>
-                  <div><core-icon icon="{{$.branches.opened ? 'arrow-drop-up' : 'arrow-drop-down'}}"></core-icon></div>
+                  <div>
+                    <core-a11y-keys keys="enter space" target="{{$.expandLibraryList}}" on-keys-pressed="{{onTapSelectBranch}}"></core-a11y-keys>
+                    <paper-icon-button icon="{{$.branches.opened ? 'arrow-drop-up' : 'arrow-drop-down'}}" aria-label="expand list of libraries" title="Expand list of libraries" on-tap="{{onTapSelectBranch}}" id="expandLibraryList"></paper-icon-button>
+                  </div>
                 </div>
               </div>
               <div>
@@ -70,13 +73,16 @@ Element providing an overview for current libraries working computers
                     selectedAttribute="">
 
                     <template repeat="{{computer, idx in computers}}">
+                      <uqlibrary-a11y-link>
                       <paper-item class="{{(idx+1) === computers.length ? 'last' : ''}}">
                         <div layout horizontal flex>
-                          <div flex class="truncate">{{computer.library}}</div>
+                          <div flex class="truncate">
+                              {{computer.library}}
+                          </div>
                           <div class="caption" end-justified><span class="{{computer.totalAvailable > 0 ? 'available' : 'unavailable'}}">{{computer.totalAvailable}}</span>/{{computer.total}}</div>
                         </div>
-
                       </paper-item>
+                      </uqlibrary-a11y-link>
                     </template>
                   </core-selector>
                 </paper-dropdown>
