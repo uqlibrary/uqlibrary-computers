@@ -144,6 +144,9 @@ Element providing an overview for current libraries working computers
           if (e.detail.hasSession) {
             if(e.detail.classes) {
               that.user = e.detail;
+            } else {
+              // Not logged in
+              that.$.account.login(window.location.href);
             }
           }
         });
