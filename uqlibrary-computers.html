@@ -44,6 +44,8 @@ Element providing an overview for current libraries working computers
 
       <core-header-panel main class="main">
         <core-toolbar>
+          <core-a11y-keys id="a11yToolBarLeftButton" target="{{$.toolBarLeftButton}}" keys="{{keyboardNavigationKeys}}"
+                          on-keys-pressed="{{ a11yKeyPressed }}"></core-a11y-keys>
           <paper-icon-button id="toolBarLeftButton" icon="menu" core-drawer-toggle></paper-icon-button>
           <h1 flex id="toolbar-page-title">Library computers</h1>
 
@@ -109,6 +111,16 @@ Element providing an overview for current libraries working computers
 
   <script>
     Polymer('uqlibrary-computers', {
+
+      // Accessibility issues fixes
+
+      keyboardNavigationKeys: 'space enter',
+
+      a11yKeyPressed: function(source, event) {
+        if (source.path && source.path.length > 0 && source.path[0].target) {
+          source.path[0].target.fire("tap");
+        }
+      },
 
       /**
        * The `computers` attribute contains information about computers
