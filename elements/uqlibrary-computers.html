@@ -1,0 +1,131 @@
+<link rel="import" href="elements.html">
+
+<!--
+`<uqlibrary-computers>` is a simple element that displays the availability of computers in the various libraries
+
+Example:
+
+    <uqlibrary-computers compact-view="false" auto-load="true"></uqlibrary-computers>
+
+@demo
+
+@demo demo/index.html Demo of the Full view
+@demo demo/index-compact.html Demo of the Compact view
+-->
+
+<style type="text/css">
+    /** Hack is in place to fix the width of the dropdown (full view mode)
+    
+    paper-dropdown-menu.uqlibrary-computers iron-dropdown {
+        width: 100%;
+    }
+</style>
+<dom-module id="uqlibrary-computers">
+    <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
+    <style is="custom-style" include="common-styles">
+        :host {
+            font-family: var(--font-family);
+        }
+
+        /** Compact view */
+        .library-name {
+            @apply(--layout-flex-2);
+        }
+
+        .library-gap {
+            @apply(--layout-flex);
+        }
+
+        .library-free {
+            @apply(--layout-flex-3);
+        }
+        paper-item.compact {
+            border-bottom: 1px solid var(--border-color);
+            line-height: 30px;
+            @apply(--layout-horizontal);
+        }
+
+        /** Full View */
+        paper-dropdown-menu {
+            width: 100%;
+        }
+
+        .branch {
+            padding: 4px;
+        }
+
+        .branch-information {
+            @apply(--layout-horizontal);
+            @apply(--layout-justified);
+        }
+
+        .name {
+            @apply(--layout-start-justified);
+        }
+
+        .availability {
+            @apply(--layout-end-justified);
+            color: var(--secondary-color);
+            padding-top: 5px;
+        }
+
+        paper-progress {
+            width: 100%;
+            --paper-progress-height: 1.14286em;
+            --paper-progress-active-color: var(--available-color);
+        }
+    </style>
+
+    <template>
+        <!-- API & GA dependencies -->
+        <uqlibrary-api-account id="account"></uqlibrary-api-account>
+        <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
+        <uqlibrary-ga id="ga" appName="Computers"></uqlibrary-ga>
+
+        <!-- Compact View -->
+        <template is="dom-if" if="{{compactView}}">
+            <template is="dom-repeat" items="{{computers}}">
+                <paper-item class="compact">
+                    <div class="library-name">{{item.library}}</div>
+                    <div class="library-gap">&nbsp;:&nbsp;</div>
+                    <div class="library-free">
+                        {{ item.totalAvailability.Available }} Free of {{ item.totalAvailability.total }}
+                    </div>
+                </paper-item>
+            </template>
+        </template>
+
+        <!-- Full View -->
+        <template is="dom-if" if="{{!compactView}}">
+            <!-- Menu -->
+            <paper-dropdown-menu label="Library">
+                <paper-menu class="dropdown-content" selected="{{_branch}}">
+                    <template is="dom-repeat" items="{{computers}}">
+                        <paper-item>{{item.library}}</paper-item>
+                    </template>
+                </paper-menu>
+            </paper-dropdown-menu>
+
+            <!-- Results -->
+            <div class="branches">
+                <template is="dom-if" if="{{ _selectedItem }}">
+                    <template is="dom-repeat" items="{{ _selectedItem.branches }}">
+                        <div class="branch">
+                            <div class="branch-information">
+                                <div class="name headline">
+                                    {{ item.name }}
+                                </div>
+                                <div class="availability">
+                                    {{ item.item.Available }} available of {{ item.item.total }} PCs
+                                </div>
+                            </div>
+                            <paper-progress value="{{ item.item.percentage }}"></paper-progress>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </template>
+    </template>
+
+    <script src="uqlibrary-computers.js"></script>
+</dom-module>

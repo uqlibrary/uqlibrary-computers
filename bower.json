@@ -7,8 +7,24 @@
     "web-components"
   ],
   "private": true,
-  "main": "uqlibrary-computers.html",
+  "main": "index.html",
   "dependencies": {
-    "uqlibrary-elements": "uqlibrary/uqlibrary-elements#master"
+    "iron-elements": "PolymerElements/iron-elements#1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#1.0.1",
+    "moment": "moment/moment#^2.10.3",
+    "uqlibrary-api": "uqlibrary/uqlibrary-api#polymer1.0",
+    "uqlibrary-ga": "uqlibrary/uqlibrary-ga#polymer1.0",
+    "uqlibrary-styles": "uqlibrary/uqlibrary-styles",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.4",
+    "paper-dropdown-menu": "Polymerelements/paper-dropdown-menu#^1.1.3",
+    "paper-menu": "Polymerelements/paper-menu#^1.2.2",
+    "paper-listbox": "Polymerelements/paper-listbox#^1.1.1"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0"
+  },
+  "resolutions": {
+    "iron-elements": "^1.0.3"
   }
 }
