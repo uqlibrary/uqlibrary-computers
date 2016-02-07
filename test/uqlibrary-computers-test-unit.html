@@ -1,90 +1,109 @@
 <!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
-  <title>uqlibrary-computers-unit</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>uql-ia-button</title>
 
-  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
 
-  <link rel="import" href="../uqlibrary-computers.html">
+    <!-- Import the element to test -->
+    <link rel="import" href="../elements/uqlibrary-computers.html">
+
 </head>
 <body>
 
-<uqlibrary-computers autoload="false"></uqlibrary-computers>
+<test-fixture id="basic">
+    <template>
+        <uqlibrary-computers auto-load="false"></uqlibrary-computers>
+    </template>
+</test-fixture>
 
 <script>
-  window.addEventListener('polymer-ready', function() {
-
     var computers = [
-      {
-        "library": "Architecture &amp; Music Library",
-        "buildingNumber": 51,
-        "availability": {
-          "Level 3": {
-            "Available": 41,
-            "Occupied": 2
-          }
+        {
+            "library": "Architecture &amp; Music Library",
+            "buildingNumber": 51,
+            "availability": {
+                "Level 3": {
+                    "Available": 41,
+                    "Occupied": 2
+                }
+            }
+        },
+        {
+            "library": "Biological Sciences Library",
+            "buildingNumber": 94,
+            "availability": {
+                "Level 1": {
+                    "Available": 13,
+                    "Occupied": 15
+                },
+                "Level 2": {
+                    "Available": 60,
+                    "Occupied": 24
+                },
+                "Level 3": {
+                    "Available": 25,
+                    "Occupied": 12
+                },
+                "Level 4": {
+                    "Available": 26,
+                    "Occupied": 14
+                }
+            }
+        },
+        {
+            "library": "D.H. Engineering &amp; Sciences Library",
+            "buildingNumber": 50,
+            "availability": {
+                "Level 2": {
+                    "Available": 15,
+                    "Occupied": 0
+                }
+            }
         }
-      },
-      {
-        "library": "Biological Sciences Library",
-        "buildingNumber": 94,
-        "availability": {
-          "Level 1": {
-            "Available": 13,
-            "Occupied": 15
-          },
-          "Level 2": {
-            "Available": 60,
-            "Occupied": 24
-          },
-          "Level 3": {
-            "Available": 25,
-            "Occupied": 12
-          },
-          "Level 4": {
-            "Available": 26,
-            "Occupied": 14
-          }
-        }
-      },
-      {
-        "library": "D.H. Engineering &amp; Sciences Library",
-        "buildingNumber": 50,
-        "availability": {
-          "Level 2": {
-            "Available": 15,
-            "Occupied": 0
-          }
-        }
-      }
     ];
-    var computersEl = document.querySelector('uqlibrary-computers');
-    describe('uqlibrary-computers', function () {
-      before(function () {
 
-      });
+    suite('<uqlibrary-computers> unit tests', function () {
+        var element;
 
-      describe('uqlibrary-computers-list', function() {
-        it('should display computers', function(done) {
-
-          computersEl.addEventListener('uqlibrary-computers-loaded', function(){
-            expect(computersEl.computers.length).to.be.equal(computers.length);
-
-            expect(computersEl.selected.library).to.be.equal(computers[0].library);
-            expect(computersEl.selected).to.have.deep.property('availability[0].Available', computers[0].availability[0].Available);
-          });
-
-          computersEl.computers = computers;
-          done();
+        setup(function () {
+            element = fixture('basic');
         });
-      });
 
+        test('It should display computers', function (done) {
+            element.addEventListener('uqlibrary-computers-loaded', function(){
+                assert.equal(computers.length, element.computers.length);
+                assert.equal(computers[0].library, element._selectedItem.library);
+                assert.equal(computers[0].availability['Level 3'].Available, element._selectedItem.availability['Level 3'].Available);
+
+                // Total
+                var total = computers[0].availability['Level 3'].Available + computers[0].availability['Level 3'].Occupied;
+                assert.equal(total, element._selectedItem.availability['Level 3'].total);
+
+                // Percentage
+                var percentage = Math.floor(computers[0].availability['Level 3'].Available / total * 100);
+                assert.equal(percentage, element._selectedItem.availability['Level 3'].percentage);
+
+                done();
+            });
+
+            element.computers = computers;
+        });
     });
-
-  });
 </script>
 
 </body>

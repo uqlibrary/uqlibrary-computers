@@ -105,12 +105,13 @@
 
             // Set the item
             this._selectedItem = this.computers[this._branch];
+
+            this.fire('uqlibrary-computers-loaded');
         },
         /** Sets the selected branch when the dropdown changes */
         _branchChanged: function() {
             if (this._apiLoaded) {
                 this._selectedItem = this.computers[this._branch];
-                console.log(this._selectedItem);
             }
         }
     });

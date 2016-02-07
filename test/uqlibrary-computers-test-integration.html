@@ -1,59 +1,63 @@
 <!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
-  <title>uqlibrary-computers-unit</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>uql-ia-button</title>
 
-  <script src="../../webcomponentsjs/webcomponents.min.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
 
-  <link rel="import" href="../uqlibrary-computers.html">
+    <!-- Import the element to test -->
+    <link rel="import" href="../elements/uqlibrary-computers.html">
+
 </head>
 <body>
 
-<uqlibrary-computers autoload="false"></uqlibrary-computers>
+<test-fixture id="basic">
+    <template>
+        <uqlibrary-computers auto-load="false"></uqlibrary-computers>
+    </template>
+</test-fixture>
 
 <script>
-  window.addEventListener('polymer-ready', function() {
+    suite('<uqlibrary-computers> unit tests', function () {
+        var element;
 
-    var computersEl = document.querySelector('uqlibrary-computers');
-    computersEl.$.computersApi.$.computers.useMockData = true;
-    describe('uqlibrary-computers', function () {
-      before(function () {
+        setup(function () {
+            document.cookie="UQLMockData=enabled";
 
-      });
-
-      describe('uqlibrary-computers-list', function() {
-        it('should display computers', function(done) {
-
-          computersEl.addEventListener('uqlibrary-computers-loaded', function(){
-
-            setTimeout(function() {
-              expect(computersEl.computers.length).to.be.equal(computersEl.$.computersApi.computers.length);
-
-              expect(computersEl.selected.library).to.be.equal(computersEl.$.computersApi.computers[0].library);
-              expect(computersEl.selected).to.have.deep.property('availability[0].Available', computersEl.$.computersApi.computers[0].availability[0].Available);
-
-              // change branch
-              computersEl.branch = 3;
-              // wait for data is loaded
-              setTimeout(function() {
-                expect(computersEl.selected.library).to.be.equal(computersEl.$.computersApi.computers[3].library);
-                expect(computersEl.selected).to.have.deep.property('availability[0].Available', computersEl.$.computersApi.computers[3].availability[0].Available);
-                done();
-
-              }, 1000);
-            }, 2000);
-          });
-
-          computersEl.$.computersApi.get();
+            element = fixture('basic');
         });
-      });
 
+        test('It should display computers', function (done) {
+            element.addEventListener('uqlibrary-computers-loaded', function() {
+                assert.typeOf(element.computers, 'array');
+
+                assert.equal(element.computers.length, element.$.computersApi.computers.length);
+                assert.equal(element._selectedItem.library, element.$.computersApi.computers[0].library);
+
+                // Switch branch
+                element.branch = 3;
+
+                assert.equal(element._selectedItem.library, element.$.computersApi.computers[3].library);
+                done();
+            });
+
+            element.$.computersApi.get();
+        });
     });
-
-  });
 </script>
 
 </body>
