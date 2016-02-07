@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <test-fixture id="basic">
     <template>
-        <uqlibrary-computers auto-load="false"></uqlibrary-computers>
+        <uqlibrary-computers compact-view="true" auto-load="false"></uqlibrary-computers>
     </template>
 </test-fixture>
 
@@ -45,16 +45,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             element.addEventListener('uqlibrary-computers-loaded', function() {
                 assert.typeOf(element.computers, 'array');
 
-                assert.equal(element.computers.length, element.$.computersApi.computers.length);
-                assert.equal(element._selectedItem.library, element.$.computersApi.computers[0].library);
-
-                // Switch branch
-                element._branch = 3;
-
                 setTimeout(function() {
-                    assert.equal(element._selectedItem.library, element.$.computersApi.computers[3].library);
-                    var branches = element.querySelectorAll('div.branch');
-                    assert.equal(3, branches.length, 'Should be an item for each branch');
+                    assert.equal(element.computers.length, element.$.computersApi.computers.length);
+                    assert.equal(element._selectedItem.library, element.$.computersApi.computers[0].library);
+
+                    var branches = element.querySelectorAll("paper-item.compact");
+                    assert.equal(branches.length, element.computers.length);
+
+                    var libraryName = element.querySelector("paper-item.compact .library-name").textContent;
+                    assert.equal(libraryName, element.computers[0].library);
+
                     done();
                 }, 100);
             });
