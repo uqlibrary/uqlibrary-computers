@@ -1,6 +1,8 @@
 # uqlibrary-computers
 
-uqlibrary-computers is a simple list view showing computer availability in the UQ libraries
+uqlibrary-computers is a simple list view showing computer availability of libraries at the University of Queensland.
+
+Full documentation can be found at [GitHub Pages](http://uqlibrary.github.io/uqlibrary-computers).
 
 ### Getting Started
 Install Node.JS and run the following oneliner in the project directory:
