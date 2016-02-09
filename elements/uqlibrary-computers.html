@@ -29,20 +29,27 @@ Example:
 
         /** Compact view */
         .library-name {
-            @apply(--layout-flex-2);
+            @apply(--layout-flex-3);
         }
 
         .library-gap {
-            @apply(--layout-flex);
+            @apply(--layout-flex-1);
         }
 
         .library-free {
-            @apply(--layout-flex-3);
+            @apply(--layout-flex-2);
+            text-align: center;
         }
         paper-item.compact {
-            border-bottom: 1px solid var(--border-color);
-            line-height: 30px;
             @apply(--layout-horizontal);
+
+            font-size: 0.85em;
+            border-bottom: 1px dashed var(--border-color);
+            min-height: 30px;
+        }
+
+        paper-item.compact:last-of-type {
+            border: none;
         }
 
         /** Full View */
@@ -86,7 +93,7 @@ Example:
         <template is="dom-if" if="{{compactView}}">
             <template is="dom-repeat" items="{{computers}}">
                 <paper-item class="compact">
-                    <div class="library-name">{{item.library}}</div>
+                    <div class="library-name">{{item.abbr}}</div>
                     <div class="library-gap">&nbsp;:&nbsp;</div>
                     <div class="library-free">
                         {{ item.totalAvailability.Available }} Free of {{ item.totalAvailability.total }}
