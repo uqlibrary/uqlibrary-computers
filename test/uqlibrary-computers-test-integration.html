@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             element = fixture('basic');
         });
 
-        test('It should display computers', function (done) {
+        test('It should display computers in full view', function (done) {
             element.addEventListener('uqlibrary-computers-loaded', function() {
                 assert.typeOf(element.computers, 'array');
 
@@ -54,7 +54,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 setTimeout(function() {
                     assert.equal(element._selectedItem.library, element.$.computersApi.computers[3].library);
                     var branches = element.querySelectorAll('div.branch');
-                    assert.equal(3, branches.length, 'Should be an item for each branch');
+
+                    console.log(element._selectedItem.library);
+
+                    assert.equal(2, branches.length, 'Duhig Building should have 2 levels');
+
                     done();
                 }, 100);
             });

@@ -84,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             element = fixture('basic');
         });
 
-        test('It should display computers', function (done) {
+        test('It should display computers - unit tests', function (done) {
             element.addEventListener('uqlibrary-computers-loaded', function(){
                 assert.equal(computers.length, element.computers.length);
                 assert.equal(computers[0].library, element._selectedItem.library);

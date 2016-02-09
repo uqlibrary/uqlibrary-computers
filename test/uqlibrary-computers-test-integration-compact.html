@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             element = fixture('basic');
         });
 
-        test('It should display computers', function (done) {
+        test('It should display computers in compact view', function (done) {
             element.addEventListener('uqlibrary-computers-loaded', function() {
                 assert.typeOf(element.computers, 'array');
 
@@ -52,8 +52,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     var branches = element.querySelectorAll("paper-item.compact");
                     assert.equal(branches.length, element.computers.length);
 
-                    var libraryName = element.querySelector("paper-item.compact .library-name").textContent;
-                    assert.equal(libraryName, element.computers[0].library);
+                    var libraryAbbr = element.querySelector("paper-item.compact .library-name").textContent;
+                    assert.equal(libraryAbbr, element.computers[0].abbr);
 
                     done();
                 }, 100);
