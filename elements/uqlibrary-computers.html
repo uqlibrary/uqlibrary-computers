@@ -44,12 +44,16 @@ Example:
             @apply(--layout-horizontal);
 
             font-size: 0.85em;
-            border-bottom: 1px dashed var(--border-color);
+            border-width: 0 0 1px 0;
+            border-style: dashed;
+            border-color: var(--border-color);
+
             min-height: 30px;
+
         }
 
         paper-item.compact:last-of-type {
-            border: none;
+            border-width: 0;
         }
 
         /** Full View */
