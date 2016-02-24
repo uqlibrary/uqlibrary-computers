@@ -57,7 +57,7 @@
 
             // Add event listener for the Computers API
             this.$.computersApi.addEventListener('uqlibrary-api-computer-availability-loaded', function(e) {
-                self.computers = e.detail;
+                self.setComputers(e.detail);
                 self._apiLoaded = true;
             });
 
@@ -65,6 +65,13 @@
                 this.$.account.get();
                 this.$.computersApi.get();
             }
+        },
+        /**
+         * Sorts and sets the computers variable
+         * @param computers
+         */
+        setComputers: function (computers) {
+          this.computers = _.sortBy(computers, "library");
         },
         /**
          * Formats the API return with totals
