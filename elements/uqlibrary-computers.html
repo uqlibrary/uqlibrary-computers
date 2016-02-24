@@ -96,7 +96,7 @@ Example:
         <!-- Compact View -->
         <template is="dom-if" if="{{compactView}}">
             <template is="dom-repeat" items="{{computers}}">
-                <paper-item class="compact">
+                <paper-item class="compact" aria-label$="{{item.library}}">
                     <div class="library-name">{{item.abbr}}</div>
                     <div class="library-gap">&nbsp;:&nbsp;</div>
                     <div class="library-free">
@@ -112,7 +112,7 @@ Example:
             <paper-dropdown-menu label="Library">
                 <paper-menu class="dropdown-content" selected="{{_branch}}">
                     <template is="dom-repeat" items="{{computers}}">
-                        <paper-item>{{item.library}}</paper-item>
+                        <paper-item aria-label$="{{item.library}}">{{item.library}}</paper-item>
                     </template>
                 </paper-menu>
             </paper-dropdown-menu>
