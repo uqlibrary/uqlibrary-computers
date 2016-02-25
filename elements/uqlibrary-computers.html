@@ -96,7 +96,7 @@ Example:
         <!-- Compact View -->
         <template is="dom-if" if="{{compactView}}">
             <template is="dom-repeat" items="{{computers}}">
-                <paper-item class="compact" aria-label$="{{item.library}}">
+                <paper-item class="compact" aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
                     <div class="library-name">{{item.abbr}}</div>
                     <div class="library-gap">&nbsp;:&nbsp;</div>
                     <div class="library-free">
