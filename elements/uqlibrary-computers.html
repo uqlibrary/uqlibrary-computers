@@ -29,7 +29,7 @@ Example:
 
         /** Compact view */
         .library-name {
-            @apply(--layout-flex-3);
+            @apply(--layout-flex-2);
         }
 
         .library-gap {
@@ -43,17 +43,21 @@ Example:
         paper-item.compact {
             @apply(--layout-horizontal);
 
-            font-size: 0.85em;
-            border-width: 0 0 1px 0;
-            border-style: dashed;
-            border-color: var(--border-color);
-
             min-height: 30px;
-
+            font-size: 0.85em;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+            padding-left: 16px;
         }
 
-        paper-item.compact:last-of-type {
-            border-width: 0;
+        paper-item.compact.header {
+            display: block;
+            text-align: center;
+            line-height: 30px;
+            min-height: 30px;
+            font-size: 16px;
+            background-color: var(--accent-color);
+            color: #FFF;
         }
 
         /** Full View */
@@ -95,6 +99,7 @@ Example:
 
         <!-- Compact View -->
         <template is="dom-if" if="{{compactView}}">
+            <paper-item class="compact header" tabindex="0">Computers Available</paper-item>
             <template is="dom-repeat" items="{{computers}}">
                 <paper-item class="compact" aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
                     <div class="library-name">{{item.abbr}}</div>
