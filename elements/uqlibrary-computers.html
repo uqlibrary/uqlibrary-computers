@@ -100,7 +100,7 @@ Example:
 
         <!-- Compact View -->
         <template is="dom-if" if="{{compactView}}">
-            <paper-item class="compact header" tabindex="0">Computers Available</paper-item>
+            <paper-item class="compact header" tabindex="-1">Computers Available</paper-item>
             <template is="dom-repeat" items="{{computers}}">
                 <paper-item class="compact" aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
                     <div class="library-name">{{item.abbr}}</div>
