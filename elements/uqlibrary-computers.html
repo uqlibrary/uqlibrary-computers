@@ -22,6 +22,7 @@ Example:
 </style>
 <dom-module id="uqlibrary-computers">
     <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
+    <style include="shared-styles"></style>
     <style is="custom-style" include="common-styles">
         :host {
             font-family: var(--font-family);
@@ -49,34 +50,13 @@ Example:
             padding-left: 16px;
         }
 
+        #details {
+            display: none;
+        }
+
         /** Full View */
         paper-dropdown-menu {
             width: 100%;
-        }
-
-        .branch {
-            padding: 4px;
-        }
-
-        .branch-information {
-            @apply(--layout-horizontal);
-            @apply(--layout-justified);
-        }
-
-        .name {
-            @apply(--layout-start-justified);
-        }
-
-        .availability {
-            @apply(--layout-end-justified);
-            color: var(--secondary-color);
-            padding-top: 5px;
-        }
-
-        paper-progress {
-            width: 100%;
-            --paper-progress-height: 1.14286em;
-            --paper-progress-active-color: var(--available-color);
         }
     </style>
 
@@ -88,15 +68,18 @@ Example:
 
         <!-- Compact View -->
         <template is="dom-if" if="{{compactView}}">
-            <paper-item class="header" tabindex="-1">Available Computers</paper-item>
-            <template is="dom-repeat" items="{{computers}}">
-                <paper-item class="compact" aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
-                    <div class="library-name body1">{{item.abbr}}</div>
-                    <div class="library-free body1">
-                        {{ item.totalAvailability.Available }} free of {{ item.totalAvailability.total }}
-                    </div>
-                </paper-item>
-            </template>
+            <neon-animated-pages id="pages" selected="0">
+                <!-- List view -->
+                <uqlibrary-computers-compact-list
+                        on-uqlibrary-computers-item-selected="_itemClicked"
+                        items="{{computers}}">
+                </uqlibrary-computers-compact-list>
+                <!-- Detail view -->
+                <uqlibrary-computers-compact-details
+                        item="{{_selectedItem}}"
+                        on-close="_onClose">
+                </uqlibrary-computers-compact-details>
+            </neon-animated-pages>
         </template>
 
         <!-- Full View -->

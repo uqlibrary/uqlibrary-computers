@@ -12,6 +12,7 @@
     "polymer": "Polymer/polymer#^1.2.0",
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",
     "paper-elements": "PolymerElements/paper-elements#^1.0.0",
+    "neon-animation": "PolymerElements/neon-animation#^1.1.0",
     "uqlibrary-api": "uqlibrary/uqlibrary-api#polymer1.0",
     "uqlibrary-ga": "uqlibrary/uqlibrary-ga#polymer1.0",
     "uqlibrary-styles": "uqlibrary/uqlibrary-styles#master"
