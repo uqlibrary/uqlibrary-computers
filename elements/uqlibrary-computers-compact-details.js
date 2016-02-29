@@ -15,28 +15,17 @@
       _image: {
         type: String
       },
-      sharedElements: {
-        type: Object,
-        value: function() {
-          return {
-            'hero': this.$.main
-          };
-        }
-      },
       animationConfig: {
         type: Object,
         value: function() {
           return {
             'entry': {
-              name: 'hero-animation',
-              id: 'hero',
-              toPage: this
+              name: 'slide-from-right-animation',
+              node: this
             },
             'exit': {
-              name: 'scale-down-animation',
-              node: this.$.main,
-              transformOrigin: '50% 50%',
-              axis: 'y'
+              name: 'slide-right-animation',
+              node: this
             }
           }
         }

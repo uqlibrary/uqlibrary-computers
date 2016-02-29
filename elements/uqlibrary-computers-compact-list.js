@@ -13,10 +13,13 @@
         type: Object,
         value: function() {
           return {
+            'entry': {
+              name: 'slide-from-left-animation',
+              node: this
+            },
             'exit': {
-              name: 'hero-animation',
-              id: 'hero',
-              fromPage: this
+              name: 'slide-left-animation',
+              node: this
             }
           };
         }
@@ -34,10 +37,6 @@
       while (target !== this && !target._templateInstance) {
         target = target.parentNode;
       }
-
-      this.sharedElements = {
-        'hero': target
-      };
 
       this.fire('uqlibrary-computers-item-selected', {
         item: event.model.item

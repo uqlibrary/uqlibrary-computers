@@ -26,6 +26,7 @@ Example:
             /* Cannot be var(--theme-color-lighter) because of opacity */
             background-color: rgba(123,12,157,.7);
             padding: 16px;
+            @apply(--layout-horizontal);
         }
 
         #main {
@@ -57,14 +58,29 @@ Example:
             padding-top: 5px;
         }
 
-        .actions { text-align: right; }
+        paper-icon-button {
+            color: #FFF;
+        }
+
+        .headline.library-name {
+            @apply(--layout-flex-2);
+            line-height: 40px;
+        }
+
+        .close {
+            @apply(--layout-end-justified);
+        }
     </style>
 
     <template>
         <div id="main">
+            <!-- Image Header -->
             <div class="image-header">
                 <div class="title-container">
-                    <div class="headline inverse">{{ item.library }}</div>
+                    <div class="headline inverse library-name">{{ item.library }}</div>
+                    <div class="close">
+                        <paper-icon-button icon="clear" on-click="_showListView"></paper-icon-button>
+                    </div>
                 </div>
             </div>
             <!-- Results -->
@@ -84,10 +100,6 @@ Example:
                         </div>
                     </template>
                 </template>
-            </div>
-            <!-- Close Button -->
-            <div class="actions">
-                <paper-button class="button-accent" on-click="_showListView">Back to all buildings</paper-button>
             </div>
         </div>
     </template>
