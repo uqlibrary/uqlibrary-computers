@@ -25,6 +25,7 @@ Example:
     <style is="custom-style" include="common-styles">
         :host {
             font-family: var(--font-family);
+            font-size: var(--body-font-size);
         }
 
         /** Compact view */
@@ -40,26 +41,12 @@ Example:
             @apply(--layout-flex-2);
             text-align: center;
         }
-        paper-item.compact {
-            @apply(--layout-horizontal);
 
+        paper-item.compact {
             min-height: 30px;
-            font-size: 0.85em;
             cursor: pointer;
             border-bottom: 1px solid var(--border-color);
             padding-left: 16px;
-        }
-
-        paper-item.compact.header {
-            display: block;
-            text-align: center;
-            line-height: 30px;
-            min-height: 30px;
-            font-size: 16px;
-            background-color: var(--accent-color);
-            color: #FFF;
-            cursor: default;
-            padding: 5px;
         }
 
         /** Full View */
@@ -101,13 +88,12 @@ Example:
 
         <!-- Compact View -->
         <template is="dom-if" if="{{compactView}}">
-            <paper-item class="compact header" tabindex="-1">Computers Available</paper-item>
+            <paper-item class="header" tabindex="-1">Available Computers</paper-item>
             <template is="dom-repeat" items="{{computers}}">
                 <paper-item class="compact" aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
-                    <div class="library-name">{{item.abbr}}</div>
-                    <div class="library-gap">&nbsp;:&nbsp;</div>
-                    <div class="library-free">
-                        {{ item.totalAvailability.Available }} Free of {{ item.totalAvailability.total }}
+                    <div class="library-name body1">{{item.abbr}}</div>
+                    <div class="library-free body1">
+                        {{ item.totalAvailability.Available }} free of {{ item.totalAvailability.total }}
                     </div>
                 </paper-item>
             </template>
@@ -133,7 +119,7 @@ Example:
                                 <div class="name headline">
                                     {{ item.name }}
                                 </div>
-                                <div class="availability">
+                                <div class="availability body1">
                                     {{ item.item.Available }} available of {{ item.item.total }} PCs
                                 </div>
                             </div>
