@@ -34,11 +34,6 @@ Example:
             min-height: 500px;
         }
 
-        #main::after {
-            clear: both;
-            content: ' ';
-        }
-
         .branch {
             padding: 4px;
         }
@@ -79,7 +74,7 @@ Example:
                 <div class="title-container">
                     <div class="headline inverse library-name">{{ item.library }}</div>
                     <div class="close">
-                        <paper-icon-button icon="clear" on-click="_showListView"></paper-icon-button>
+                        <paper-icon-button icon="clear" on-click="_showListView" aria-label="Back to computers view"></paper-icon-button>
                     </div>
                 </div>
             </div>
