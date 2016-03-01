@@ -38,6 +38,8 @@
     _itemChanged: function () {
       // Set image URLs
       this.$$('.image-header').style["background-image"] = "url('"+this.item.image+"')";
+
+      this.fire("uqlibrary-computer-details-loaded", this.item.abbr);
     },
     /**
      * Closes the details view

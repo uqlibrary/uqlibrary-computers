@@ -34,8 +34,12 @@ Example:
             min-height: 500px;
         }
 
+        .branches {
+            padding-top: 12px;
+        }
+
         .branch {
-            padding: 4px;
+            padding: 4px 16px;
         }
 
         .branch-information {
@@ -63,7 +67,18 @@ Example:
         }
 
         .close {
-            @apply(--layout-end-justified);
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        .close paper-icon-button {
+            --paper-icon-button: {
+                background-color: var(--theme-color-lighter);
+                border-radius: 50%;
+            };
+
+            --paper-icon-button-ink-color: #FFF;
         }
     </style>
 
@@ -71,11 +86,11 @@ Example:
         <div id="main">
             <!-- Image Header -->
             <div class="image-header">
+                <div class="close">
+                    <paper-icon-button icon="arrow-back" on-click="_showListView" aria-label="Back to computers view"></paper-icon-button>
+                </div>
                 <div class="title-container">
                     <div class="headline inverse library-name">{{ item.library }}</div>
-                    <div class="close">
-                        <paper-icon-button icon="clear" on-click="_showListView" aria-label="Back to computers view"></paper-icon-button>
-                    </div>
                 </div>
             </div>
             <!-- Results -->

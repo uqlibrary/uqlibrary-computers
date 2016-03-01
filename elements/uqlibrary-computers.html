@@ -22,36 +22,10 @@ Example:
 </style>
 <dom-module id="uqlibrary-computers">
     <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
-    <style include="shared-styles"></style>
     <style is="custom-style" include="common-styles">
         :host {
             font-family: var(--font-family);
             font-size: var(--body-font-size);
-        }
-
-        /** Compact view */
-        .library-name {
-            @apply(--layout-flex-2);
-        }
-
-        .library-gap {
-            @apply(--layout-flex-1);
-        }
-
-        .library-free {
-            @apply(--layout-flex-2);
-            text-align: center;
-        }
-
-        paper-item.compact {
-            min-height: 30px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border-color);
-            padding-left: 16px;
-        }
-
-        #details {
-            display: none;
         }
 
         /** Full View */
@@ -76,6 +50,7 @@ Example:
                 </uqlibrary-computers-compact-list>
                 <!-- Detail view -->
                 <uqlibrary-computers-compact-details
+                        id="details"
                         item="{{_selectedItem}}"
                         on-close="_onClose">
                 </uqlibrary-computers-compact-details>

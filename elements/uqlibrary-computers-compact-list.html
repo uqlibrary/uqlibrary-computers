@@ -17,6 +17,7 @@ Example:
 
         /** Compact view */
         .library-name {
+            color: var(--accent-color);
             @apply(--layout-flex-2);
         }
 
@@ -41,7 +42,7 @@ Example:
                         class="compact"
                         on-click="_showDetailsView"
                         aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
-                    <div class="library-name body1">{{item.abbr}}</div>
+                    <div class="library-name link body1">{{item.abbr}}</div>
                     <div class="library-free body1">
                         {{ item.totalAvailability.Available }} free of {{ item.totalAvailability.total }}
                     </div>

@@ -55,7 +55,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     var libraryAbbr = element.querySelector("paper-item.compact .library-name").textContent;
                     assert.equal(libraryAbbr, element.computers[0].abbr);
 
-                    done();
+                    // Select item
+                    element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
+                        assert.equal(e.detail, element.computers[1].abbr);
+
+                        element.addEventListener('close', function () {
+                            // Just making sure we get here
+                            assert.equal(1, 1);
+                            done();
+                        });
+
+                        element.$$('#details')._showListView();
+                    });
+                    element._selectedItem = element.computers[1];
                 }, 100);
             });
 
