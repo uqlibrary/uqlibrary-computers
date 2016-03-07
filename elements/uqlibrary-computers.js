@@ -177,7 +177,7 @@
      * @private
      */
     _itemClicked: function (e) {
-      this.$.ga.addEvent('Navigation', 'Detail view of ', e.detail.item.library);
+      this.$.ga.addEvent('Navigation', 'Detail view of ' + e.detail.item.library);
       this._selectedItem = e.detail.item;
       this.$$('#pages').selected = 1;
     },
