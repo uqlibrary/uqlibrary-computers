@@ -40,12 +40,13 @@ Element providing an overview for current libraries working computers
     <uqlibrary-ga id="ga" appName="Computers"></uqlibrary-ga>
     <core-localstorage name="uqlibrary-computers-storage" id="localStorage" value="{{branch}}"></core-localstorage>
     <core-drawer-panel id="drawerPanel" class="drawer" drawerWidth="256px" responsiveWidth="768px">
-      <core-header-panel drawer>
-        <uqlibrary-menu account="{{user}}"></uqlibrary-menu>
-      </core-header-panel>
+      <div drawer class="left-drawer" fit style="overflow: scroll;">
+      <uqlibrary-menu account="{{user}}"></uqlibrary-menu>
+      </div>
 
-      <core-header-panel main class="main">
-        <core-toolbar>
+      <div main layout vertical class="main">
+
+      <core-toolbar>
           <core-a11y-keys id="a11yToolBarLeftButton" target="{{$.toolBarLeftButton}}" keys="{{keyboardNavigationKeys}}"
                           on-keys-pressed="{{ a11yKeyPressed }}"></core-a11y-keys>
           <paper-icon-button id="toolBarLeftButton" icon="menu" core-drawer-toggle></paper-icon-button>
@@ -53,7 +54,8 @@ Element providing an overview for current libraries working computers
 
         </core-toolbar>
 
-        <div id="content">
+        <div main layout vertical fit relative style="margin-top: 64px;">
+          <div id="content" fit style="overflow: scroll;">
           <div>
             <paper-shadow id="branchWrapper" class="card" z="1" horizontal layout>
               <div id="branchSelect" relative on-tap="{{onTapSelectBranch}}">
@@ -105,7 +107,9 @@ Element providing an overview for current libraries working computers
             </template>
           </div>
         </div>
-      </core-header-panel>
+        </div>
+
+      </div>
 
     </core-drawer-panel>
 
