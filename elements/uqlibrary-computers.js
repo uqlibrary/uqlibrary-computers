@@ -69,6 +69,21 @@
             ]
           }
         }
+      },
+      /**
+       * Prefix for the google analytics category name. For example: "Home page"
+       */
+      gaCategoryPrefix: {
+        type: String,
+        value: '',
+        observer: '_gaCategoryPrefixChanged'
+      },
+      /**
+       * Holds the Google Analytics app name of this component
+       */
+      _gaAppName: {
+        type: String,
+        value: ''
       }
     },
     listeners: {
@@ -162,6 +177,7 @@
      * @private
      */
     _itemClicked: function (e) {
+      this.$.ga.addEvent('Navigation', 'Detail view of ', e.detail.item.library);
       this._selectedItem = e.detail.item;
       this.$$('#pages').selected = 1;
     },
@@ -170,7 +186,15 @@
      * @private
      */
     _onClose: function() {
+      this.$.ga.addEvent('Navigation', 'List view');
       this.$$('#pages').selected = 0;
+    },
+    /**
+     * Sets the Google Analytics app name
+     * @private
+     */
+    _gaCategoryPrefixChanged: function () {
+      this._gaAppName = (this.gaCategoryPrefix ? this.gaCategoryPrefix + ' Computers' : 'Computers');
     }
   });
 }());
