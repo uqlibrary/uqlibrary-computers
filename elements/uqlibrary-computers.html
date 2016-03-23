@@ -24,7 +24,6 @@ Example:
   }
 </style>
 <dom-module id="uqlibrary-computers">
-  <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
   <style is="custom-style" include="common-styles">
     :host {
       @apply(--uql-app-host);
@@ -65,7 +64,7 @@ Example:
     <!-- API & GA dependencies -->
     <uqlibrary-api-account id="account"></uqlibrary-api-account>
     <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
-    <uqlibrary-ga id="ga" appName="[[_gaAppName]]"></uqlibrary-ga>
+    <uqlibrary-ga id="ga" app-name="[[_gaAppName]]"></uqlibrary-ga>
 
     <!-- Compact View -->
     <template is="dom-if" if="[[compactView]]">
@@ -93,9 +92,13 @@ Example:
           <paper-toolbar>
             <!-- Toolbar -->
             <template is="dom-if" if="[[!standAlone]]">
-              <paper-icon-button icon="menu" on-tap="_toggleDrawerPanel" paper-drawer-toggle></paper-icon-button>
+              <paper-icon-button icon="menu"
+                                 on-tap="_toggleDrawerPanel"
+                                 title="open menu button"
+                                 aria-label="open menu button"
+                                 paper-drawer-toggle></paper-icon-button>
             </template>
-            <div class="title uqlibrary-app-title">Library Computers</div>
+            <div class="title uqlibrary-app-title" title="[[headerTitle]]">[[headerTitle]]</div>
           </paper-toolbar>
           <!-- Content -->
           <div class="fit">

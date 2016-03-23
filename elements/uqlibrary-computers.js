@@ -92,6 +92,13 @@
       standAlone: {
         type: Object,
         value: true
+      },
+      /**
+       * Header title - application name
+       */
+      headerTitle: {
+        type: String,
+        value: 'Computers'
       }
     },
     listeners: {
