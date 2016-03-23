@@ -27,8 +27,7 @@ Example:
   <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
   <style is="custom-style" include="common-styles">
     :host {
-      font-family: var(--font-family);
-      font-size: var(--body-font-size);
+      @apply(--uql-app-host);
     }
 
     /** Full View */
@@ -44,13 +43,21 @@ Example:
       padding-top: 20px;
     }
 
-    .branch-information {
+    .branch-information, .dropdown-item {
       @apply(--layout-horizontal);
       @apply(--layout-justified);
     }
 
     .availability {
       padding-top: 6px;
+    }
+
+    .dropdown-item .caption {
+      color: var(--secondary-color);
+    }
+
+    .available {
+      color: var(--available-color);
     }
   </style>
 
@@ -97,7 +104,12 @@ Example:
               <paper-dropdown-menu label="Library">
                 <paper-menu class="dropdown-content" selected="{{_branch}}">
                   <template is="dom-repeat" items="[[computers]]">
-                    <paper-item aria-label$="[[item.library]]">{{item.library}}</paper-item>
+                    <paper-item aria-label$="[[item.library]]" class="dropdown-item" label="[[item.library]]">
+                      <div>[[item.library]]</div>
+                      <div class="caption">
+                        <span class$="[[_branchAvailabilityClass(item)]]">[[item.totalAvailability.Available]]</span>/[[item.totalAvailability.total]]
+                      </div>
+                    </paper-item>
                   </template>
                 </paper-menu>
               </paper-dropdown-menu>

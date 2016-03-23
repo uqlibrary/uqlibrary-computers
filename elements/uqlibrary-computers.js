@@ -205,6 +205,15 @@
       this._gaAppName = (this.gaCategoryPrefix ? this.gaCategoryPrefix + ' Computers' : 'Computers');
     },
     /**
+     * Returns a class based on whether the branch has available computers
+     * @param item
+     * @returns {string}
+     * @private
+     */
+    _branchAvailabilityClass: function (item) {
+      return (item.totalAvailability.Available == 0 ? "unavailable" : "available");
+    },
+    /**
      * Toggles the drawer panel of the main UQL app
      * @private
      */
