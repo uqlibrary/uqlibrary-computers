@@ -14,80 +14,118 @@ Example:
 -->
 
 <style type="text/css">
-    /** Hack is in place to fix the width of the dropdown (full view mode) **/
+  /** Hack is in place to fix the width of the dropdown (full view mode) **/
 
-    paper-dropdown-menu.uqlibrary-computers iron-dropdown {
-        width: 100%;
-    }
+  paper-dropdown-menu.uqlibrary-computers iron-dropdown {
+    position: absolute;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+  }
 </style>
 <dom-module id="uqlibrary-computers">
-    <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
-    <style is="custom-style" include="common-styles">
-        :host {
-            font-family: var(--font-family);
-            font-size: var(--body-font-size);
-        }
+  <uqlibrary-api-computer-availability></uqlibrary-api-computer-availability>
+  <style is="custom-style" include="common-styles">
+    :host {
+      font-family: var(--font-family);
+      font-size: var(--body-font-size);
+    }
 
-        /** Full View */
-        paper-dropdown-menu {
-            width: 100%;
-        }
-    </style>
+    /** Full View */
+    paper-dropdown-menu {
+      width: 100%;
+    }
 
-    <template>
-        <!-- API & GA dependencies -->
-        <uqlibrary-api-account id="account"></uqlibrary-api-account>
-        <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
-        <uqlibrary-ga id="ga" appName="[[_gaAppName]]"></uqlibrary-ga>
+    .computer-container {
+      margin: 20px;
+    }
 
-        <!-- Compact View -->
-        <template is="dom-if" if="{{compactView}}">
-            <neon-animated-pages id="pages" selected="0">
-                <!-- List view -->
-                <uqlibrary-computers-compact-list
-                        on-uqlibrary-computers-item-selected="_itemClicked"
-                        items="{{computers}}">
-                </uqlibrary-computers-compact-list>
-                <!-- Detail view -->
-                <uqlibrary-computers-compact-details
-                        id="details"
-                        item="{{_selectedItem}}"
-                        on-close="_onClose">
-                </uqlibrary-computers-compact-details>
-            </neon-animated-pages>
-        </template>
+    .branch {
+      padding-top: 20px;
+    }
 
-        <!-- Full View -->
-        <template is="dom-if" if="{{!compactView}}">
-            <!-- Menu -->
-            <paper-dropdown-menu label="Library">
-                <paper-menu class="dropdown-content" selected="{{_branch}}">
-                    <template is="dom-repeat" items="{{computers}}">
-                        <paper-item aria-label$="{{item.library}}">{{item.library}}</paper-item>
-                    </template>
-                </paper-menu>
-            </paper-dropdown-menu>
+    .branch-information {
+      @apply(--layout-horizontal);
+      @apply(--layout-justified);
+    }
 
-            <!-- Results -->
-            <div class="branches">
-                <template is="dom-if" if="{{ _selectedItem }}">
-                    <template is="dom-repeat" items="{{ _selectedItem.branches }}">
-                        <div class="branch">
-                            <div class="branch-information">
-                                <div class="name headline">
-                                    {{ item.name }}
-                                </div>
-                                <div class="availability body1">
-                                    {{ item.item.Available }} available of {{ item.item.total }} PCs
-                                </div>
-                            </div>
-                            <paper-progress value="{{ item.item.percentage }}"></paper-progress>
-                        </div>
-                    </template>
-                </template>
-            </div>
-        </template>
+    .availability {
+      padding-top: 6px;
+    }
+  </style>
+
+  <template>
+    <!-- API & GA dependencies -->
+    <uqlibrary-api-account id="account"></uqlibrary-api-account>
+    <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
+    <uqlibrary-ga id="ga" appName="[[_gaAppName]]"></uqlibrary-ga>
+
+    <!-- Compact View -->
+    <template is="dom-if" if="[[compactView]]">
+      <neon-animated-pages id="pages" selected="0">
+        <!-- List view -->
+        <uqlibrary-computers-compact-list
+                on-uqlibrary-computers-item-selected="_itemClicked"
+                items="{{computers}}">
+        </uqlibrary-computers-compact-list>
+        <!-- Detail view -->
+        <uqlibrary-computers-compact-details
+                id="details"
+                item="{{_selectedItem}}"
+                on-close="_onClose">
+        </uqlibrary-computers-compact-details>
+      </neon-animated-pages>
     </template>
 
-    <script src="uqlibrary-computers.js"></script>
+    <!-- Full View -->
+    <template is="dom-if" if="[[!compactView]]">
+      <!-- Scaffolding -->
+      <div class="fit layout vertical">
+        <paper-header-panel class="flex">
+          <!-- Header -->
+          <paper-toolbar>
+            <!-- Toolbar -->
+            <template is="dom-if" if="[[!standAlone]]">
+              <paper-icon-button icon="menu" on-tap="_toggleDrawerPanel" paper-drawer-toggle></paper-icon-button>
+            </template>
+            <div class="title uqlibrary-app-title">Library Computers</div>
+          </paper-toolbar>
+          <!-- Content -->
+          <div class="fit">
+            <div class="computer-container">
+              <!-- Menu -->
+              <paper-dropdown-menu label="Library">
+                <paper-menu class="dropdown-content" selected="{{_branch}}">
+                  <template is="dom-repeat" items="[[computers]]">
+                    <paper-item aria-label$="[[item.library]]">{{item.library}}</paper-item>
+                  </template>
+                </paper-menu>
+              </paper-dropdown-menu>
+
+              <!-- Results -->
+              <div class="branches">
+                <template is="dom-if" if="{{ _selectedItem }}">
+                  <template is="dom-repeat" items="{{ _selectedItem.branches }}">
+                    <div class="branch">
+                      <div class="branch-information">
+                        <div class="name headline">
+                          [[ item.name ]]
+                        </div>
+                        <div class="availability subhead">
+                          [[item.item.Available ]] available of [[ item.item.total ]] PCs
+                        </div>
+                      </div>
+                      <paper-progress value="[[ item.item.percentage ]]"></paper-progress>
+                    </div>
+                  </template>
+                </template>
+              </div>
+            </div>
+          </div>
+        </paper-header-panel>
+      </div>
+    </template>
+  </template>
+
+  <script src="uqlibrary-computers.js"></script>
 </dom-module>

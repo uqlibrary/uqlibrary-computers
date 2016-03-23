@@ -84,6 +84,14 @@
       _gaAppName: {
         type: String,
         value: ''
+      },
+      /**
+       * Required. Whether the app should start in standalone mode or not.
+       * @type Boolean
+       */
+      standAlone: {
+        type: Object,
+        value: true
       }
     },
     listeners: {
@@ -195,6 +203,13 @@
      */
     _gaCategoryPrefixChanged: function () {
       this._gaAppName = (this.gaCategoryPrefix ? this.gaCategoryPrefix + ' Computers' : 'Computers');
+    },
+    /**
+     * Toggles the drawer panel of the main UQL app
+     * @private
+     */
+    _toggleDrawerPanel: function () {
+      this.fire('uqlibrary-toggle-drawer');
     }
   });
 }());
