@@ -2,24 +2,17 @@
 
 echo "Testing branch: ${CI_BRANCH}"
 
-# REDO WHEN POLYMER 1.0 GOES LIVE
+echo "Installing global dependencies"
+npm install -g web-component-tester wct-sauce@1.6.0 bower
+export NPM_ROOT=$(npm root -g)
+cp -r $NPM_ROOT/wct-sauce $NPM_ROOT/web-component-tester/node_modules
 
-# If polymer 1.0
-if [ ${CI_BRANCH} == "polymer1.0" ]; then
+echo "Pulling uqlibrary-elements"
+git clone -b ${CI_BRANCH} --single-branch https://github.com/uqlibrary/uqlibrary-elements ../uqlibrary-elements
+chmod 755 ../uqlibrary-elements/bin/*.sh
 
-    if [ ${PIPE_NUM} == 1 ]; then
-        # Run local tests
-        echo "Starting local WCT tests"
-        npm install web-component-tester -g
-        bower install
-        wct
-    else
-        echo "Pipe not used"
-    fi
-else
-    # make sure wct-sauce plugin works with old version of wct
-    cd ../uqlibrary-elements
-    ./bin/elements_local_tests.sh
-    cd ../uqlibrary-computers
-    ../uqlibrary-elements/bin/sauce.sh
-fi
+echo "Running tests on Elements and Computers"
+cd ../uqlibrary-elements
+./bin/elements_local_tests.sh
+cd ../uqlibrary-computers
+../uqlibrary-elements/bin/sauce.sh
