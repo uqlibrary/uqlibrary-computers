@@ -45,21 +45,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             element.addEventListener('uqlibrary-computers-loaded', function() {
                 assert.typeOf(element.computers, 'array');
 
-                assert.equal(element.computers.length, element.$.computersApi.computers.length);
-                assert.equal(element._selectedItem.library, element.$.computersApi.computers[0].library);
-
-                // Switch branch
-                element._branch = 3;
-
                 setTimeout(function() {
-                    assert.equal(element._selectedItem.library, element.$.computersApi.computers[3].library);
-                    var branches = element.querySelectorAll('div.branch');
+                    assert.equal(element.computers.length, element.$.computersApi.computers.length);
+                    assert.equal(element._selectedItem.library, element.$.computersApi.computers[0].library);
 
-                    console.log(element._selectedItem.library);
+                    var branches = element.querySelectorAll("paper-item");
+                    assert.equal(branches.length, element.computers.length);
 
-                    assert.equal(2, branches.length, 'Duhig Building should have 2 levels');
+                    var libraryName = element.querySelector("paper-item .library-name").textContent;
+                    assert.equal(libraryName, element.computers[0].library);
 
-                    done();
+                    // Select item
+                    element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
+                        assert.equal(e.detail, element.computers[1].abbr);
+
+                        element.addEventListener('close', function () {
+                            // Just making sure we get here
+                            assert.equal(1, 1);
+                            done();
+                        });
+
+                        element.$$('#details')._showListView();
+                    });
+                    element._selectedItem = element.computers[1];
                 }, 100);
             });
 
