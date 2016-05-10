@@ -29,6 +29,17 @@ Example:
       cursor: pointer;
       border-bottom: 1px solid var(--border-color);
     }
+
+    @media all and (max-width: 400px) {
+      paper-item {
+        @apply(--layout-vertical);
+      }
+
+      .library-free, .library-name {
+        width: 100%;
+        text-align: left;
+      }
+    }
   </style>
 
   <template>
