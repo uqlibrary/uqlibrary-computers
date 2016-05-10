@@ -1,6 +1,6 @@
 (function () {
   Polymer({
-    is: 'uqlibrary-computers-compact-list',
+    is: 'uqlibrary-computers-list-compact',
     behaviors: [
       Polymer.NeonAnimatableBehavior
     ],

@@ -99,6 +99,21 @@
       headerTitle: {
         type: String,
         value: 'Computers'
+      },
+      /**
+       * Holds the selected page for the full view
+       */
+      _selectedPage: {
+        type: Number,
+        value: 0,
+        observer: '_selectedPageChanged'
+      },
+      /**
+       * Whether we should show the back button
+       */
+      _backEnabled: {
+        type: Boolean,
+        value: false
       }
     },
     listeners: {
@@ -180,12 +195,6 @@
 
       this.fire('uqlibrary-computers-loaded');
     },
-    /** Sets the selected branch when the dropdown changes */
-    _branchChanged: function () {
-      if (this._apiLoaded) {
-        this._selectedItem = this.computers[this._branch];
-      }
-    },
     /**
      * Catches the click from the LIST VIEW and sets the selected branch
      * @param e
@@ -194,7 +203,7 @@
     _itemClicked: function (e) {
       this.$.ga.addEvent('Navigation', 'Detail view of ' + e.detail.item.library);
       this._selectedItem = e.detail.item;
-      this.$$('#pages').selected = 1;
+      this._selectedPage = 1;
     },
     /**
      * Fired when the user closes the details view
@@ -202,7 +211,7 @@
      */
     _onClose: function() {
       this.$.ga.addEvent('Navigation', 'List view');
-      this.$$('#pages').selected = 0;
+      this._selectedPage = 0;
     },
     /**
      * Sets the Google Analytics app name
@@ -212,20 +221,25 @@
       this._gaAppName = (this.gaCategoryPrefix ? this.gaCategoryPrefix + ' Computers' : 'Computers');
     },
     /**
-     * Returns a class based on whether the branch has available computers
-     * @param item
-     * @returns {string}
-     * @private
-     */
-    _branchAvailabilityClass: function (item) {
-      return (item.totalAvailability.Available == 0 ? "unavailable" : "available");
-    },
-    /**
      * Toggles the drawer panel of the main UQL app
      * @private
      */
     _toggleDrawerPanel: function () {
       this.fire('uqlibrary-toggle-drawer');
+    },
+    /**
+     * Back button clicked
+     * @private
+     */
+    _goBack: function () {
+      this._selectedPage = 0;
+    },
+    /**
+     * Called when the selectedPage changes
+     * @private
+     */
+    _selectedPageChanged: function () {
+      this._backEnabled = (this._selectedPage > 0);
     }
   });
 }());

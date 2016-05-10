@@ -1,0 +1,118 @@
+<link rel="import" href="elements.html">
+
+<!--
+`<uqlibrary-computers-details-compact>` is a helper element for <uqlibrary-computers>
+
+Example:
+
+    <uqlibrary-computers-details-compact item="{{item}}"></uqlibrary-computers-details-compact>
+-->
+
+<dom-module id="uqlibrary-computers-details-compact">
+    <style is="custom-style" include="common-styles">
+        :host {
+            font-family: var(--font-family);
+            font-size: var(--body-font-size);
+        }
+
+        .image-header {
+            background-size: cover;
+            background-position: 50% 50%;
+            padding-top: 150px;
+            background-color: var(--theme-color-lighter);
+        }
+
+        .title-container {
+            /* Cannot be var(--theme-color-lighter) because of opacity */
+            background-color: rgba(123,12,157,.7);
+            padding: 16px;
+            @apply(--layout-horizontal);
+        }
+
+        #main {
+            background-color: #FFF;
+            min-height: 500px;
+        }
+
+        .branches {
+            padding-top: 12px;
+        }
+
+        .branch {
+            padding: 4px 16px;
+        }
+
+        .branch-information {
+            @apply(--layout-horizontal);
+            @apply(--layout-justified);
+        }
+
+        .name {
+            @apply(--layout-start-justified);
+        }
+
+        .availability {
+            @apply(--layout-end-justified);
+            color: var(--secondary-color);
+            padding-top: 5px;
+        }
+
+        paper-icon-button {
+            color: #FFF;
+        }
+
+        .headline.library-name {
+            @apply(--layout-flex-2);
+            line-height: 40px;
+        }
+
+        .close {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        .close paper-icon-button {
+            --paper-icon-button: {
+                background-color: var(--theme-color-lighter);
+                border-radius: 50%;
+            };
+
+            --paper-icon-button-ink-color: #FFF;
+        }
+    </style>
+
+    <template>
+        <div id="main">
+            <!-- Image Header -->
+            <div class="image-header">
+                <div class="close">
+                    <paper-icon-button icon="arrow-back" on-click="_showListView" aria-label="Back to computers view"></paper-icon-button>
+                </div>
+                <div class="title-container">
+                    <div class="headline inverse library-name">{{ item.library }}</div>
+                </div>
+            </div>
+            <!-- Results -->
+            <div class="branches">
+                <template is="dom-if" if="{{ item }}">
+                    <template is="dom-repeat" items="{{ item.branches }}">
+                        <div class="branch">
+                            <div class="branch-information">
+                                <div class="name headline">
+                                    {{ item.name }}
+                                </div>
+                                <div class="availability body1">
+                                    {{ item.item.Available }} available of {{ item.item.total }} PCs
+                                </div>
+                            </div>
+                            <paper-progress value="{{ item.item.percentage }}"></paper-progress>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <script src="uqlibrary-computers-details-compact.js"></script>
+</dom-module>

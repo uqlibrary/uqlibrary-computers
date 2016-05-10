@@ -30,33 +30,8 @@ Example:
     }
 
     /** Full View */
-    paper-dropdown-menu {
-      width: 100%;
-    }
-
-    .computer-container {
-      margin: 20px;
-    }
-
-    .branch {
-      padding-top: 20px;
-    }
-
-    .branch-information, .dropdown-item {
-      @apply(--layout-horizontal);
-      @apply(--layout-justified);
-    }
-
-    .availability {
-      padding-top: 6px;
-    }
-
-    .dropdown-item .caption {
-      color: var(--secondary-color);
-    }
-
-    .available {
-      color: var(--available-color);
+    .back-arrow {
+      margin-right: 20px;
     }
   </style>
 
@@ -70,16 +45,16 @@ Example:
     <template is="dom-if" if="[[compactView]]">
       <neon-animated-pages id="pages" selected="0">
         <!-- List view -->
-        <uqlibrary-computers-compact-list
+        <uqlibrary-computers-list-compact
                 on-uqlibrary-computers-item-selected="_itemClicked"
                 items="{{computers}}">
-        </uqlibrary-computers-compact-list>
+        </uqlibrary-computers-list-compact>
         <!-- Detail view -->
-        <uqlibrary-computers-compact-details
+        <uqlibrary-computers-details-compact
                 id="details"
                 item="{{_selectedItem}}"
                 on-close="_onClose">
-        </uqlibrary-computers-compact-details>
+        </uqlibrary-computers-details-compact>
       </neon-animated-pages>
     </template>
 
@@ -92,50 +67,40 @@ Example:
           <paper-toolbar>
             <!-- Toolbar -->
             <template is="dom-if" if="[[!standAlone]]">
-              <paper-icon-button icon="menu"
-                                 on-tap="_toggleDrawerPanel"
-                                 title="open menu button"
-                                 aria-label="open menu button"
-                                 paper-drawer-toggle></paper-icon-button>
+              <template is="dom-if" if="[[!_backEnabled]]">
+                <paper-icon-button icon="menu"
+                                   on-tap="_toggleDrawerPanel"
+                                   title="open menu button"
+                                   aria-label="open menu button"
+                                   paper-drawer-toggle></paper-icon-button>
+              </template>
+            </template>
+            <template is="dom-if" if="[[_backEnabled]]">
+              <paper-icon-button
+                  class="back-arrow"
+                  icon="icons:arrow-back"
+                  on-tap="_goBack"
+                  role="button"
+                  aria-label="Go back to computers list">
+              </paper-icon-button>
             </template>
             <div class="title uqlibrary-app-title" title="[[headerTitle]]">[[headerTitle]]</div>
           </paper-toolbar>
           <!-- Content -->
           <div class="fit">
-            <div class="computer-container">
-              <!-- Menu -->
-              <paper-dropdown-menu label="Library">
-                <paper-menu class="dropdown-content" selected="{{_branch}}">
-                  <template is="dom-repeat" items="[[computers]]">
-                    <paper-item aria-label$="[[item.library]]" class="dropdown-item" label="[[item.library]]">
-                      <div>[[item.library]]</div>
-                      <div class="caption">
-                        <span class$="[[_branchAvailabilityClass(item)]]">[[item.totalAvailability.Available]]</span>/[[item.totalAvailability.total]]
-                      </div>
-                    </paper-item>
-                  </template>
-                </paper-menu>
-              </paper-dropdown-menu>
-
-              <!-- Results -->
-              <div class="branches">
-                <template is="dom-if" if="{{ _selectedItem }}">
-                  <template is="dom-repeat" items="{{ _selectedItem.branches }}">
-                    <div class="branch">
-                      <div class="branch-information">
-                        <div class="name headline">
-                          [[ item.name ]]
-                        </div>
-                        <div class="availability subhead">
-                          [[item.item.Available ]] available of [[ item.item.total ]] PCs
-                        </div>
-                      </div>
-                      <paper-progress value="[[ item.item.percentage ]]"></paper-progress>
-                    </div>
-                  </template>
-                </template>
-              </div>
-            </div>
+            <neon-animated-pages id="pages" selected="{{_selectedPage}}">
+              <!-- List view -->
+              <uqlibrary-computers-list
+                  on-uqlibrary-computers-item-selected="_itemClicked"
+                  items="{{computers}}">
+              </uqlibrary-computers-list>
+              <!-- Details view -->
+              <uqlibrary-computers-details
+                  id="details"
+                  item="{{_selectedItem}}"
+                  on-close="_onClose">
+              </uqlibrary-computers-details>
+            </neon-animated-pages>
           </div>
         </paper-header-panel>
       </div>

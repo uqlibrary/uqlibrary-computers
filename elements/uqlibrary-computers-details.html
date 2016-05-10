@@ -1,14 +1,14 @@
 <link rel="import" href="elements.html">
 
 <!--
-`<uqlibrary-computers-compact-details>` is a helper element for <uqlibrary-computers>
+`<uqlibrary-computers-details>` is a helper element for <uqlibrary-computers>
 
 Example:
 
-    <uqlibrary-computers-compact-details item="{{item}}"></uqlibrary-computers-compact-details>
+    <uqlibrary-computers-details item="{{item}}"></uqlibrary-computers-details>
 -->
 
-<dom-module id="uqlibrary-computers-compact-details">
+<dom-module id="uqlibrary-computers-details">
     <style is="custom-style" include="common-styles">
         :host {
             font-family: var(--font-family);
@@ -86,9 +86,6 @@ Example:
         <div id="main">
             <!-- Image Header -->
             <div class="image-header">
-                <div class="close">
-                    <paper-icon-button icon="arrow-back" on-click="_showListView" aria-label="Back to computers view"></paper-icon-button>
-                </div>
                 <div class="title-container">
                     <div class="headline inverse library-name">{{ item.library }}</div>
                 </div>
@@ -114,5 +111,5 @@ Example:
         </div>
     </template>
 
-    <script src="uqlibrary-computers-compact-details.js"></script>
+    <script src="uqlibrary-computers-details.js"></script>
 </dom-module>
