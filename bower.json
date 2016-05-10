@@ -9,12 +9,12 @@
   "private": true,
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.0",
+    "polymer": "Polymer/polymer#^1.4.0",
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",
     "paper-elements": "PolymerElements/paper-elements#^1.0.0",
     "neon-animation": "PolymerElements/neon-animation#^1.1.0",
-    "uqlibrary-api": "uqlibrary/uqlibrary-api#v1.0.0",
-    "uqlibrary-ga": "uqlibrary/uqlibrary-ga#v1.0.0",
+    "uqlibrary-api": "uqlibrary/uqlibrary-api#v1.0.3",
+    "uqlibrary-ga": "uqlibrary/uqlibrary-ga#v1.0.3",
     "uqlibrary-styles": "uqlibrary/uqlibrary-styles#v1.0.0"
   },
   "devDependencies": {

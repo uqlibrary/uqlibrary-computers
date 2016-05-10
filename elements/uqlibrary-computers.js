@@ -27,19 +27,10 @@
         value: false
       },
       /**
-       * Selected branch
-       */
-      _branch: {
-        type: Number,
-        value: 0,
-        observer: "_branchChanged"
-      },
-      /**
        * Currently selected branch object
        */
-      _selectedBranch: {
-        type: Object,
-        value: null
+      _selectedItem: {
+        type: Object
       },
       /**
        * Whether the API is loaded
@@ -158,6 +149,8 @@
      * Because of dom-repeat limitations we need to convert the JSON objects to array
      * */
     _computersChanged: function () {
+      if (!computers || computers.length == 0) return;
+
       _.forEach(this.computers, function (item) {
         item.branches = [];
 
@@ -191,7 +184,7 @@
       this._apiLoaded = true;
 
       // Set the item
-      this._selectedItem = this.computers[this._branch];
+      this._selectedItem = this.computers[0];
 
       this.fire('uqlibrary-computers-loaded');
     },
