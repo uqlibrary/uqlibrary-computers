@@ -144,7 +144,6 @@
      */
     activate: function () {
       this._selectedPage = 0;
-      this.$.computersList.activate();
     },
     /**
      * Sorts and sets the computers variable
