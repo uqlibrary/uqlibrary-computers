@@ -46,6 +46,7 @@ Example:
       <neon-animated-pages id="pages" selected="0">
         <!-- List view -->
         <uqlibrary-computers-list-compact
+                id="computersList"
                 on-uqlibrary-computers-item-selected="_itemClicked"
                 items="{{computers}}">
         </uqlibrary-computers-list-compact>
@@ -91,6 +92,7 @@ Example:
             <neon-animated-pages id="pages" selected="{{_selectedPage}}">
               <!-- List view -->
               <uqlibrary-computers-list
+                  id="computersList"
                   on-uqlibrary-computers-item-selected="_itemClicked"
                   items="{{computers}}">
               </uqlibrary-computers-list>

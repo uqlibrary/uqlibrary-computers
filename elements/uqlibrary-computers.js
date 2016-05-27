@@ -136,6 +136,15 @@
         this.$.account.get();
         this.$.computersApi.get();
       }
+
+      this.activate();
+    },
+    /**
+     * Go to the computers list page whenever the computer app receives focus
+     */
+    activate: function () {
+      this._selectedPage = 0;
+      this.$.computersList.activate();
     },
     /**
      * Sorts and sets the computers variable
