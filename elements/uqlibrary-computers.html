@@ -43,7 +43,7 @@ Example:
 
     <!-- Compact View -->
     <template is="dom-if" if="[[compactView]]">
-      <neon-animated-pages id="pages" selected="0">
+      <neon-animated-pages id="pages" selected="{{_selectedPage}}">
         <!-- List view -->
         <uqlibrary-computers-list-compact
                 id="computersList"
@@ -53,8 +53,9 @@ Example:
         <!-- Detail view -->
         <uqlibrary-computers-details-compact
                 id="details"
-                item="{{_selectedItem}}"
-                on-close="_onClose">
+                building="{{_selectedItem}}"
+                on-close="_onClose"
+                ga-app-name="[[_gaAppName]]">
         </uqlibrary-computers-details-compact>
       </neon-animated-pages>
     </template>
@@ -99,8 +100,9 @@ Example:
               <!-- Details view -->
               <uqlibrary-computers-details
                   id="details"
-                  item="{{_selectedItem}}"
-                  on-close="_onClose">
+                  building="{{_selectedItem}}"
+                  on-close="_onClose"
+                  ga-app-name="[[_gaAppName]]">
               </uqlibrary-computers-details>
             </neon-animated-pages>
           </div>

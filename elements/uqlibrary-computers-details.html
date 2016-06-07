@@ -37,6 +37,14 @@ Example:
             padding: 4px 16px;
         }
 
+        paper-item {
+            display:block;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+            min-height: 70px;
+            padding-left: 16px;
+        }
+
         .branch-information {
             @apply(--layout-horizontal);
             @apply(--layout-justified);
@@ -78,31 +86,38 @@ Example:
     </style>
 
     <template>
+        <uqlibrary-ga id="ga" app-name="[[gaAppName]]"></uqlibrary-ga>
         <div id="main">
             <!-- Image Header -->
             <div class="image-header">
                 <div class="title-container">
-                    <div class="headline inverse library-name">{{ item.library }}</div>
+                    <div class="headline inverse library-name">{{ building.library }}</div>
                 </div>
             </div>
-            <!-- Results -->
-            <div class="branches">
-                <template is="dom-if" if="{{ item }}">
-                    <template is="dom-repeat" items="{{ item.branches }}">
-                        <div class="branch">
-                            <div class="branch-information">
-                                <div class="name headline">
-                                    {{ item.name }}
+              <!-- Results -->
+                <div class="branches">
+                    <template is="dom-if" if="{{ building }}">
+                        <template is="dom-repeat" items="{{ building.branches }}">
+
+                            <paper-item class="branch"
+                                        on-tap="_showFloorPlan"
+                                        aria-label$="[[building.library]] [[item.name]] - [[item.item.Available]] available of [[ item.item.total ]] PCs click to view the floor Plan">
+                                <div class="branch-information">
+                                    <div class="name headline">
+                                        {{ item.name }}
+                                    </div>
+                                    <div class="availability body1">
+                                        {{ item.item.Available }} available of {{ item.item.total }} PCs
+                                    </div>
                                 </div>
-                                <div class="availability body1">
-                                    {{ item.item.Available }} available of {{ item.item.total }} PCs
-                                </div>
-                            </div>
-                            <paper-progress value="{{ item.item.percentage }}"></paper-progress>
-                        </div>
+                                <paper-progress value="{{ item.item.percentage }}"></paper-progress>
+                                <paper-ripple></paper-ripple>
+                            </paper-item>
+
+                        </template>
                     </template>
-                </template>
-            </div>
+                </div>
+
         </div>
     </template>
 
