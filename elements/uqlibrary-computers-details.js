@@ -60,26 +60,13 @@
       this.fire('close');
     },
     /**
-     * Generate the floor plan api url
-     * @private
-     */
-    _getFloorPlanUrl: function () {
-      if(this.building.buildingCode && this._selectedRoom.roomCode) {
-        return 'https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + this._selectedRoom.roomCode;
-      }else {
-        return '';
-      }
-    },
-    /**
      * Show the floor plan in a new window, TODO: show the floor plan in a neon-animated-page
      * @private
      */
     _showFloorPlan: function (e) {
-      var room = e.model.item.item;
-      room.name = e.model.item.name;
-      this._selectedRoom = room;
+      var room = e.model.item;
 
-      window.open(this._getFloorPlanUrl(), '_blank');
+      window.open('https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + room.item.roomCode, '_blank');
 
       this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + room.name);
     }
