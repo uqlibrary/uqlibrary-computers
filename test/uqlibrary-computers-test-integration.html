@@ -58,7 +58,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     // Select item
                     element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
                         assert.equal(e.detail, element.computers[1].abbr);
-
                         element.addEventListener('close', function () {
                             // Just making sure we get here
                             assert.equal(1, 1);
@@ -68,6 +67,57 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         element.$$('#details')._showListView();
                     });
                     element._selectedItem = element.computers[1];
+
+                }, 100);
+            });
+
+            element.$.computersApi.get();
+        });
+
+        test('It should return correct floorplan url', function (done) {
+
+            element.addEventListener('uqlibrary-computers-loaded', function() {
+
+                setTimeout(function() {
+                    var detailPage = null;
+                    // Select item
+                    element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
+                       detailPage = element.$$('#details');
+
+                        // Select BSL Level 2
+                        detailPage._selectedRoom = element.computers[1].availability['Level 2'];
+                        assert.equal(detailPage._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=BSL&room=Lvl2");
+
+                        done();
+
+                    });
+                    element._selectedItem = element.computers[1];
+
+                }, 100);
+            });
+
+            element.$.computersApi.get();
+        });
+
+        test('It should return correct floorplan url - SSAH Level 1 Entry', function (done) {
+
+            element.addEventListener('uqlibrary-computers-loaded', function() {
+
+                setTimeout(function() {
+                    var detailPage = null;
+                    // Select item
+                    element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
+                        detailPage = element.$$('#details');
+
+                        // Select SSAH Level 1 Entry
+                        detailPage._selectedRoom = element.computers[9].availability['Level 1 Entry'];
+                        assert.equal(detailPage._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=SSAH&room=Link");
+
+                        done();
+
+                    });
+                    element._selectedItem = element.computers[9];
+
                 }, 100);
             });
 

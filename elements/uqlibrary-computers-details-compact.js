@@ -47,7 +47,17 @@
 
       this.fire("uqlibrary-computer-details-loaded", this.building.abbr);
     },
-
+    /**
+     * Generate the floor plan api url
+     * @private
+     */
+    _getFloorPlanUrl: function () {
+      if(this._selectedRoom) {
+        return 'https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + this._selectedRoom.roomCode;
+      }else {
+        return '';
+      }
+    },
     /**
      * Closes the details view
      * @private
@@ -60,12 +70,13 @@
      * @private
      */
     _showFloorPlan: function (e) {
-      var room = e.model.item;
+      var room = e.model.item.item;
+      room.name = e.model.item.name;
+      this._selectedRoom = room;
 
-      window.open('https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + room.item.roomCode, '_blank');
+      window.open(this._getFloorPlanUrl(), '_blank');
 
       this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + room.name);
-
     }
   });
 }());
