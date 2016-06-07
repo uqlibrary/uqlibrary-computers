@@ -52,7 +52,7 @@
      * @private
      */
     _getFloorPlanUrl: function () {
-      if(this._selectedRoom) {
+      if(this.building.buildingCode && this._selectedRoom.roomCode) {
         return 'https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + this._selectedRoom.roomCode;
       }else {
         return '';
