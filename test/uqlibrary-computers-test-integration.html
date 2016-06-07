@@ -82,13 +82,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     var detailPage = null;
                     // Select item
                     element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
-                       detailPage = element.$$('#details');
+                        setTimeout(function() {
+                           detailPage = element.$$('#details');
 
-                        // Select BSL Level 2
-                        detailPage._selectedRoom = element.computers[1].availability['Level 2'];
-                        assert.equal(detailPage._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=BSL&room=Lvl2");
+                            // Select BSL Level 2
+                            detailPage._selectedRoom = element.computers[1].availability['Level 2'];
+                            assert.equal(detailPage._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=BSL&room=Lvl2");
 
-                        done();
+                            done();
+                        }, 100);
 
                     });
                     element._selectedItem = element.computers[1];
@@ -107,13 +109,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     var detailPage = null;
                     // Select item
                     element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
-                        detailPage = element.$$('#details');
+                        setTimeout(function() {
+                            detailPage = element.$$('#details');
 
-                        // Select SSAH Level 1 Entry
-                        detailPage._selectedRoom = element.computers[9].availability['Level 1 Entry'];
-                        assert.equal(detailPage._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=SSAH&room=Link");
+                            // Select SSAH Level 1 Entry
+                            detailPage._selectedRoom = element.computers[9].availability['Level 1 Entry'];
+                            assert.equal(detailPage._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=SSAH&room=Link");
 
-                        done();
+                            done();
+                        }, 100);
 
                     });
                     element._selectedItem = element.computers[9];
