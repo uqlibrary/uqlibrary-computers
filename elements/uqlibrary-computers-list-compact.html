@@ -15,23 +15,9 @@ Example:
             font-size: var(--body-font-size);
         }
 
-        /** Compact view */
-        .library-name {
-            color: var(--accent-color);
-            @apply(--layout-flex-2);
-        }
-
-        .library-free {
+        .computers-available {
             @apply(--layout-flex-2);
             text-align: center;
-        }
-
-        paper-item.compact {
-            min-height: 30px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 8px;
-            font-size: 14px;
         }
     </style>
 
@@ -40,11 +26,11 @@ Example:
             <paper-item class="header" tabindex="-1">Available Computers</paper-item>
             <template is="dom-repeat" items="{{items}}">
                 <paper-item
-                        class="compact"
+                        class="detail-item compact"
                         on-click="_showDetailsView"
                         aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
-                    <div class="library-name link body1">{{item.abbr}}</div>
-                    <div class="library-free body1">
+                    <div class="linked-item link body1">{{item.abbr}}</div>
+                    <div class="computers-available body1">
                         {{ item.totalAvailability.Available }} free of {{ item.totalAvailability.total }}
                     </div>
                     <paper-ripple></paper-ripple>
