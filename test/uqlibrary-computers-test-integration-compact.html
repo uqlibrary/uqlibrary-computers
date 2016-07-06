@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     var branches = element.querySelectorAll("paper-item.compact:not(.header)");
                     assert.equal(branches.length, element.computers.length);
 
-                    var libraryAbbr = element.querySelector("paper-item.compact .library-name").textContent;
+                    var libraryAbbr = element.querySelector("paper-item.compact .linked-item").textContent;
                     assert.equal(libraryAbbr, element.computers[0].abbr);
 
                     // Select item
