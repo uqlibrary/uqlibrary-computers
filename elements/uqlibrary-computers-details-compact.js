@@ -11,7 +11,15 @@
       building: {
         type: Object,
         observer: '_buildingChanged'
-      }, /**
+      },
+      /**
+       * Room / level
+       */
+      room: {
+        type: Object,
+        notify: true
+      },
+      /**
        * Holds the Google Analytics app name of this component
        */
       gaAppName: {
@@ -20,21 +28,6 @@
       },
       _image: {
         type: String
-      },
-      animationConfig: {
-        type: Object,
-        value: function() {
-          return {
-            'entry': {
-              name: 'slide-from-right-animation',
-              node: this
-            },
-            'exit': {
-              name: 'slide-right-animation',
-              node: this
-            }
-          }
-        }
       }
     },
     /**
@@ -48,17 +41,6 @@
       this.fire("uqlibrary-computer-details-loaded", this.building.abbr);
     },
     /**
-     * Generate the floor plan api url
-     * @private
-     */
-    _getFloorPlanUrl: function () {
-      if(this.building.buildingCode && this._selectedRoom.roomCode) {
-        return 'https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + this._selectedRoom.roomCode;
-      }else {
-        return '';
-      }
-    },
-    /**
      * Closes the details view
      * @private
      */
@@ -70,13 +52,10 @@
      * @private
      */
     _showFloorPlan: function (e) {
-      var room = e.model.item.item;
-      room.name = e.model.item.name;
-      this._selectedRoom = room;
+      this.room = e.model.item;
+      this.fire('floorplan');
 
-      window.open(this._getFloorPlanUrl(), '_blank');
-
-      this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + room.name);
+      this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + this.room.name);
     }
   });
 }());

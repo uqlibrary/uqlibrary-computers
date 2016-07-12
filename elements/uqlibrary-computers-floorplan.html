@@ -1,0 +1,94 @@
+<link rel="import" href="elements.html">
+
+<!--
+`<uqlibrary-computers-details-compact>` is a helper element for <uqlibrary-computers>
+
+Example:
+
+    <uqlibrary-computers-floorplan></uqlibrary-computers-floorplan>
+-->
+
+<dom-module id="uqlibrary-computers-floorplan">
+  <style is="custom-style" include="common-styles">
+    :host {
+      font-family: var(--font-family);
+      font-size: var(--body-font-size);
+    }
+
+    .image-header {
+      background-size: cover;
+      background-position: 50% 50%;
+      padding-top: 150px;
+      background-color: var(--theme-color-lighter);
+    }
+
+    .title-container {
+      /* Cannot be var(--theme-color-lighter) because of opacity */
+      background-color: rgba(123,12,157,.7);
+      padding: 16px;
+      @apply(--layout-vertical);
+    }
+
+    #main {
+      background-color: #FFF;
+      height: 100%;
+      @apply(--layout-vertical);
+      
+    }
+    
+    .floorplan-container {
+      flex: 1;
+      position: relative;
+    }
+
+    iframe {
+      position: absolute;
+      border: none;
+      height: 100%;
+      width: 100%;
+    }
+
+    .close {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
+
+    .close paper-icon-button {
+      color: #FFF;
+
+      --paper-icon-button: {
+        background-color: var(--theme-color-lighter);
+        border-radius: 50%;
+      };
+
+      --paper-icon-button-ink-color: #FFF;
+    }
+
+  </style>
+
+  <template>
+    <div id="main">
+      <!-- Image Header -->
+      <div class="image-header">
+        <template is="dom-if" if="[[compact]]">
+          <div class="close">
+            <paper-icon-button icon="arrow-back" on-click="_showDetailsView" aria-label="Back to computers view"></paper-icon-button>
+          </div>
+        </template>
+        <div class="title-container">
+          <div class="headline inverse library-name">[[ building.library ]]</div> <br />
+          <div class="subhead inverse">[[ room.name ]]</div>
+        </div>
+      </div>
+      <!-- Floorplan -->
+      <div class="floorplan-container">
+        <template is="dom-if" if="[[_showFloorPlan]]">
+          <iframe src="{{ _floorPlanSource }}"></iframe>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <script src="uqlibrary-computers-floorplan.js"></script>
+</dom-module>
