@@ -119,6 +119,12 @@
       _backEnabled: {
         type: Boolean,
         value: false
+      },
+      /**
+       * Holds the current page title
+       */
+      _pageTitle: {
+        type: String
       }
     },
     listeners: {
@@ -127,6 +133,8 @@
     },
     ready: function () {
       var self = this;
+
+      this._pageTitle = this.headerTitle;
 
       // Add event listener for accounts
       this.$.account.addEventListener('uqlibrary-api-account-loaded', function (e) {
@@ -282,6 +290,19 @@
       } else {
         this.entryAnimation = 'slide-from-left-animation';
         this.exitAnimation = 'slide-right-animation';
+      }
+
+      // Set title
+      switch (requestedPage) {
+        case 0:
+          this._pageTitle = this.headerTitle;
+          break;
+        case 1:
+          this._pageTitle = this._selectedItem.library;
+          break;
+        case 2:
+          this._pageTitle = this._selectedItem.library + ' - ' + this._selectedRoom.name;
+          break;
       }
 
       this._selectedPage = requestedPage;

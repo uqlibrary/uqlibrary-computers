@@ -29,13 +29,10 @@
        * Source of the floor plan
        */
       _floorPlanSource: {
-        type: String,
+        type: String
       }
     },
     _roomChanged: function () {
-      // Set image URLs
-      this.$$('.image-header').style["background-image"] = "url('"+this.building.image+"')";
-
       // Set floorplan URL
       this._floorPlanSource = this._getFloorPlanUrl();
       if (this._floorPlanSource === false) {
@@ -52,7 +49,8 @@
      */
     _getFloorPlanUrl: function () {
       if (this.building.buildingCode && this.room.item.roomCode) {
-        return 'https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode + '&room=' + this.room.item.roomCode;
+        return 'https://www.library.uq.edu.au/uqlsm/map.php?building=' + this.building.buildingCode +
+            '&room=' + this.room.item.roomCode + '&embed=true';
       } else {
         return '';
       }
