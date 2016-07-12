@@ -44,7 +44,7 @@
         this._showFloorPlan = true;
       }
 
-      this.fire("uqlibrary-computer-details-loaded", this.building.abbr);
+      this.fire("uqlibrary-computer-floorplans-loaded", this.building.abbr);
     },
     /**
      * Generate the floor plan api url
