@@ -52,7 +52,7 @@
      * @private
      */
     _showFloorPlan: function (e) {
-      if (e.model.item.floorplan) {
+      if (e.model.item.item.floorplan) {
         this.room = e.model.item;
         this.fire('floorplan');
 
