@@ -50,10 +50,12 @@
      * @private
      */
     _showFloorPlan: function (e) {
-      this.room = e.model.item;
-      this.fire('floorplan');
+      if (e.model.item.item.floorplan) {
+        this.room = e.model.item;
+        this.fire('floorplan');
 
-      this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + this.room.name);
+        this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + this.room.name);
+      }
     }
   });
 }());

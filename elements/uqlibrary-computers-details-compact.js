@@ -48,14 +48,16 @@
       this.fire('close');
     },
     /**
-     * Show the floor plan in a new window, TODO: show the floor plan in a neon-animated-page
+     * Show the floor plan in a new window
      * @private
      */
     _showFloorPlan: function (e) {
-      this.room = e.model.item;
-      this.fire('floorplan');
+      if (e.model.item.floorplan) {
+        this.room = e.model.item;
+        this.fire('floorplan');
 
-      this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + this.room.name);
+        this.$.ga.addEvent('Navigation', 'Floor plan view of ' + this.building.library + ' ' + this.room.name);
+      }
     }
   });
 }());
