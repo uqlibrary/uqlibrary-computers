@@ -8,21 +8,6 @@
       /** Opening hours of all libraries in JSON format */
       items: {
         type: Array
-      },
-      animationConfig: {
-        type: Object,
-        value: function() {
-          return {
-            'entry': {
-              name: 'slide-from-left-animation',
-              node: this
-            },
-            'exit': {
-              name: 'slide-left-animation',
-              node: this
-            }
-          };
-        }
       }
     },
     listeners: {

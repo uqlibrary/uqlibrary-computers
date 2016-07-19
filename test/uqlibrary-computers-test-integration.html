@@ -60,7 +60,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         assert.equal(e.detail, element.computers[1].abbr);
 
                         element.$$('#details')._selectedRoom = element.computers[1].availability['Level 2'];
-                        assert.equal(element.$$('#details')._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=BSL&room=Lvl2");
 
                         element.addEventListener('close', function () {
                             // Just making sure we get here
@@ -86,10 +85,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     // Select item
                     element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
                         flush(function() {
-
                             // Select SSAH Level 1 Entry
-                            element.$$('#details')._selectedRoom = element.computers[9].availability['Level 1 Entry'];
-                            assert.equal(element.$$('#details')._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=SSAH&room=Link");
+                            element.$$('#details').building = element.computers[9];
+                            var item = {
+                                name: 'Level 1 Entry',
+                                item: element.computers[9].availability['Level 1 Entry']
+                            };
+                            element.$$('#details').room = item;
+
+                            element.addEventListener('uqlibrary-computer-floorplans-loaded', function (e) {
+                               flush(function() {
+                                   assert.equal(element.$$('#floorplan')._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=SSAH&room=Link");
+                               });
+                            });
 
                             done();
                         });

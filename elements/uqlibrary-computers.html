@@ -29,6 +29,14 @@ Example:
       @apply(--uql-app-host);
     }
 
+    #pages {
+      position: absolute;
+      top: 0;
+      right:0;
+      left:0;
+      bottom: 0;
+    }
+
     /** Full View */
     .back-arrow {
       margin-right: 20px;
@@ -43,7 +51,9 @@ Example:
 
     <!-- Compact View -->
     <template is="dom-if" if="[[compactView]]">
-      <neon-animated-pages id="pages" selected="{{_selectedPage}}">
+      <neon-animated-pages id="pages" selected="{{_selectedPage}}"
+                           entry-animation="[[entryAnimation]]"
+                           exit-animation="[[exitAnimation]]">
         <!-- List view -->
         <uqlibrary-computers-list-compact
                 id="computersList"
@@ -53,10 +63,19 @@ Example:
         <!-- Detail view -->
         <uqlibrary-computers-details-compact
                 id="details"
+                room="{{_selectedRoom}}"
                 building="{{_selectedItem}}"
                 on-close="_onClose"
+                on-floorplan="_onFloorPlan"
                 ga-app-name="[[_gaAppName]]">
         </uqlibrary-computers-details-compact>
+        <uqlibrary-computers-floorplan
+                id="floorplan"
+                compact="true"
+                building="{{_selectedItem}}"
+                room="{{_selectedRoom}}"
+                on-close="_openDetailsView">
+        </uqlibrary-computers-floorplan>
       </neon-animated-pages>
     </template>
 
@@ -86,11 +105,13 @@ Example:
                   aria-label="Go back to computers list">
               </paper-icon-button>
             </template>
-            <div class="title uqlibrary-app-title" title="[[headerTitle]]">[[headerTitle]]</div>
+            <div class="title uqlibrary-app-title" title="[[_pageTitle]]">[[_pageTitle]]</div>
           </paper-toolbar>
           <!-- Content -->
           <div class="fit">
-            <neon-animated-pages id="pages" selected="{{_selectedPage}}">
+            <neon-animated-pages id="pages" selected="{{_selectedPage}}"
+                                 entry-animation="[[entryAnimation]]"
+                                 exit-animation="[[exitAnimation]]">
               <!-- List view -->
               <uqlibrary-computers-list
                   id="computersList"
@@ -100,10 +121,19 @@ Example:
               <!-- Details view -->
               <uqlibrary-computers-details
                   id="details"
+                  room="{{_selectedRoom}}"
                   building="{{_selectedItem}}"
                   on-close="_onClose"
+                  on-floorplan="_onFloorPlan"
                   ga-app-name="[[_gaAppName]]">
               </uqlibrary-computers-details>
+              <uqlibrary-computers-floorplan
+                  id="floorplan"
+                  compact="false"
+                  building="{{_selectedItem}}"
+                  room="{{_selectedRoom}}"
+                  on-close="_openDetailsView">
+              </uqlibrary-computers-floorplan>
             </neon-animated-pages>
           </div>
         </paper-header-panel>

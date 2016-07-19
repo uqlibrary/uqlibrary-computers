@@ -1,0 +1,61 @@
+<link rel="import" href="elements.html">
+
+<!--
+`<uqlibrary-computers-details-compact>` is a helper element for <uqlibrary-computers>
+
+Example:
+
+    <uqlibrary-computers-floorplan></uqlibrary-computers-floorplan>
+-->
+
+<dom-module id="uqlibrary-computers-floorplan">
+  <style is="custom-style" include="common-styles">
+    :host {
+      font-family: var(--font-family);
+      font-size: var(--body-font-size);
+    }
+
+    #main {
+      background-color: #FFF;
+      height: 100%;
+      @apply(--layout-vertical);
+    }
+    
+    .floorplan-container {
+      flex: 1;
+      position: relative;
+    }
+
+    iframe {
+      position: absolute;
+      border: none;
+      height: calc(100% - 40px);
+      width: calc(100% - 40px);
+      padding: 20px;
+    }
+
+    .arrow-back {
+      margin-right: 20px;
+    }
+
+  </style>
+
+  <template>
+    <div id="main">
+      <template is="dom-if" if="[[ compact ]]">
+        <paper-toolbar>
+          <paper-icon-button class="arrow-back" icon="arrow-back" on-click="_showDetailsView" aria-label="Back to detailed view"></paper-icon-button>
+          <div class="title inverse">[[ building.abbr ]] - [[ room.name ]]</div>
+        </paper-toolbar>
+      </template>
+      <!-- Floorplan -->
+      <div class="floorplan-container">
+        <template is="dom-if" if="[[_showFloorPlan]]">
+          <iframe src="{{ _floorPlanSource }}"></iframe>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <script src="uqlibrary-computers-floorplan.js"></script>
+</dom-module>

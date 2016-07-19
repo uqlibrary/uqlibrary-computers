@@ -33,11 +33,25 @@
         type: Object
       },
       /**
+       * Currently selected room / level
+       */
+      _selectedRoom: {
+        type: Object
+      },
+      /**
        * Whether the API is loaded
        */
       _apiLoaded: {
         type: Boolean,
         value: false
+      },
+      entryAnimation: {
+        type: String,
+        value: 'slide-from-right-animation'
+      },
+      exitAnimation: {
+        type: String,
+        value: 'slide-left-animation'
       },
       /**
        * Whether the computers view is currently in "Details" view
@@ -105,6 +119,12 @@
       _backEnabled: {
         type: Boolean,
         value: false
+      },
+      /**
+       * Holds the current page title
+       */
+      _pageTitle: {
+        type: String
       }
     },
     listeners: {
@@ -113,6 +133,8 @@
     },
     ready: function () {
       var self = this;
+
+      this._pageTitle = this.headerTitle;
 
       // Add event listener for accounts
       this.$.account.addEventListener('uqlibrary-api-account-loaded', function (e) {
@@ -204,7 +226,7 @@
     _itemClicked: function (e) {
       this.$.ga.addEvent('Navigation', 'Detail view of ' + e.detail.item.library);
       this._selectedItem = e.detail.item;
-      this._selectedPage = 1;
+      this._switchToPage(1);
     },
     /**
      * Fired when the user closes the details view
@@ -212,7 +234,14 @@
      */
     _onClose: function() {
       this.$.ga.addEvent('Navigation', 'List view');
-      this._selectedPage = 0;
+      this._switchToPage(0);
+    },
+    /**
+     * Fired when the user clicks on a room / level in the Details view
+     * @private
+     */
+    _onFloorPlan: function () {
+      this._switchToPage(2);
     },
     /**
      * Sets the Google Analytics app name
@@ -233,7 +262,7 @@
      * @private
      */
     _goBack: function () {
-      this._selectedPage = 0;
+      this._switchToPage(this._selectedPage - 1);
     },
     /**
      * Called when the selectedPage changes
@@ -241,6 +270,42 @@
      */
     _selectedPageChanged: function () {
       this._backEnabled = (this._selectedPage > 0);
+    },
+    /**
+     * Opens the details view
+     * @private
+     */
+    _openDetailsView: function () {
+      this._switchToPage(1);
+    },
+    /**
+     * Changes animation
+     * @param requestedPage
+     * @private
+     */
+    _switchToPage: function (requestedPage) {
+      if (requestedPage > this._selectedPage) {
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
+      } else {
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
+      }
+
+      // Set title
+      switch (requestedPage) {
+        case 0:
+          this._pageTitle = this.headerTitle;
+          break;
+        case 1:
+          this._pageTitle = this._selectedItem.library;
+          break;
+        case 2:
+          this._pageTitle = this._selectedItem.library + ' - ' + this._selectedRoom.name;
+          break;
+      }
+
+      this._selectedPage = requestedPage;
     }
   });
 }());
