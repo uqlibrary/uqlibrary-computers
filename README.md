@@ -1,5 +1,8 @@
 # uqlibrary-computers
 
+[![Dependency Status](https://david-dm.org/uqlibrary/uqlibrary-computers.svg)](https://david-dm.org/uqlibrary/uqlibrary-computers)
+[![Dev Dependency Status](https://david-dm.org/uqlibrary/uqlibrary-computers/dev-status.svg)](https://david-dm.org/uqlibrary/uqlibrary-computers?type=dev)
+
 uqlibrary-computers displays academic computers to the end user
 
 Example of full documentation can be found at [GitHub Pages](http://uqlibrary.github.io/uqlibrary-computers).
