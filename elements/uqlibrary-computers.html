@@ -13,37 +13,35 @@ Example:
 @demo demo/index-compact.html Demo of the Compact view
 -->
 
-<style type="text/css">
-  /** Hack is in place to fix the width of the dropdown (full view mode) **/
-
-  paper-dropdown-menu.uqlibrary-computers iron-dropdown {
-    position: absolute;
-    left: 0 !important;
-    right: 0 !important;
-    top: 0 !important;
-  }
-</style>
 <dom-module id="uqlibrary-computers">
-  <style is="custom-style" include="common-styles">
-    :host {
-      @apply(--uql-app-host);
-    }
-
-    #pages {
-      position: absolute;
-      top: 0;
-      right:0;
-      left:0;
-      bottom: 0;
-    }
-
-    /** Full View */
-    .back-arrow {
-      margin-right: 20px;
-    }
-  </style>
-
   <template>
+    <style is="custom-style" include="common-styles">
+      :host {
+        @apply(--uql-app-host);
+      }
+
+      /** Hack is in place to fix the width of the dropdown (full view mode) **/
+      paper-dropdown-menu.uqlibrary-computers iron-dropdown {
+        position: absolute;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+      }
+
+      #pages {
+        position: absolute;
+        top: 0;
+        right:0;
+        left:0;
+        bottom: 0;
+      }
+
+      /** Full View */
+      .back-arrow {
+        margin-right: 20px;
+      }
+    </style>
+
     <!-- API & GA dependencies -->
     <uqlibrary-api-account id="account"></uqlibrary-api-account>
     <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>

@@ -9,46 +9,46 @@ Example:
 -->
 
 <dom-module id="uqlibrary-computers-list">
-  <style is="custom-style" include="common-styles">
-    :host {
-      font-family: var(--font-family);
-      font-size: var(--body-font-size);
-    }
-
-    /** Compact view */
-    .library-name {
-      color: var(--accent-color);
-    }
-
-    .library-free {
-      @apply(--layout-flex);
-      text-align: right;
-    }
-
-    paper-item {
-      cursor: pointer;
-      border-bottom: 1px solid var(--border-color);
-      min-height: 70px;
-      padding-left: 16px;
-    }
-
-    @media all and (max-width: 400px) {
-      paper-item {
-        @apply(--layout-vertical);
-      }
-
-      .library-name {
-        margin-top: 10px;
-      }
-
-      .library-free, .library-name {
-        width: 100%;
-        text-align: left;
-      }
-    }
-  </style>
-
   <template>
+    <style is="custom-style" include="common-styles">
+      :host {
+        font-family: var(--font-family);
+        font-size: var(--body-font-size);
+      }
+
+      /** Compact view */
+      .library-name {
+        color: var(--accent-color);
+      }
+
+      .library-free {
+        @apply(--layout-flex);
+        text-align: right;
+      }
+
+      paper-item {
+        cursor: pointer;
+        border-bottom: 1px solid var(--border-color);
+        min-height: 70px;
+        padding-left: 16px;
+      }
+
+      @media all and (max-width: 400px) {
+        paper-item {
+          @apply(--layout-vertical);
+        }
+
+        .library-name {
+          margin-top: 10px;
+        }
+
+        .library-free, .library-name {
+          width: 100%;
+          text-align: left;
+        }
+      }
+    </style>
+
     <div id="main">
       <template is="dom-repeat" items="{{items}}">
         <paper-item

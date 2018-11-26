@@ -9,19 +9,19 @@ Example:
 -->
 
 <dom-module id="uqlibrary-computers-list-compact">
-    <style is="custom-style" include="common-styles">
-        :host {
-            font-family: var(--font-family);
-            font-size: var(--body-font-size);
-        }
-
-        .computers-available {
-            @apply(--layout-flex-2);
-            text-align: center;
-        }
-    </style>
-
     <template>
+        <style is="custom-style" include="common-styles">
+            :host {
+                font-family: var(--font-family);
+                font-size: var(--body-font-size);
+            }
+
+            .computers-available {
+                @apply(--layout-flex-2);
+                text-align: center;
+            }
+        </style>
+
         <div id="main">
             <!-- <paper-item class="header" tabindex="-1">Available computers</paper-item> -->
             <template is="dom-repeat" items="{{items}}">

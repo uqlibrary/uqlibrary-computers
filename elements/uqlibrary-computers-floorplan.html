@@ -9,38 +9,38 @@ Example:
 -->
 
 <dom-module id="uqlibrary-computers-floorplan">
-  <style is="custom-style" include="common-styles">
-    :host {
-      font-family: var(--font-family);
-      font-size: var(--body-font-size);
-    }
-
-    #main {
-      background-color: #FFF;
-      height: 100%;
-      @apply(--layout-vertical);
-    }
-    
-    .floorplan-container {
-      flex: 1;
-      position: relative;
-    }
-
-    iframe {
-      position: absolute;
-      border: none;
-      height: calc(100% - 40px);
-      width: calc(100% - 40px);
-      padding: 20px;
-    }
-
-    .arrow-back {
-      margin-right: 20px;
-    }
-
-  </style>
-
   <template>
+    <style is="custom-style" include="common-styles">
+      :host {
+        font-family: var(--font-family);
+        font-size: var(--body-font-size);
+      }
+
+      #main {
+        background-color: #FFF;
+        height: 100%;
+        @apply(--layout-vertical);
+      }
+
+      .floorplan-container {
+        flex: 1;
+        position: relative;
+      }
+
+      iframe {
+        position: absolute;
+        border: none;
+        height: calc(100% - 40px);
+        width: calc(100% - 40px);
+        padding: 20px;
+      }
+
+      .arrow-back {
+        margin-right: 20px;
+      }
+
+    </style>
+
     <div id="main">
       <template is="dom-if" if="[[ compact ]]">
         <paper-toolbar>

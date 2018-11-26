@@ -21,5 +21,8 @@
     "web-component-tester": "*",
     "iron-component-page": "PolymerElements/iron-component-page#^1.1.4",
     "test-fixture": "PolymerElements/test-fixture#^1.0.0"
+  },
+  "resolutions": {
+    "test-fixture": "^1.0.0"
   }
 }
