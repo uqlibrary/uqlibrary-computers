@@ -5,7 +5,7 @@
 
 uqlibrary-computers displays academic computers to the end user
 
-Documentation can be found in [GitHub Pages](http://uqlibrary.github.io/uqlibrary-computers/uqlibrary-computers/).
+Documentation can be found in [GitHub Pages](http://uqlibrary.github.io/uqlibrary-computers/uqlibrary-computers/demo/).
 
 ## Dev Setup
 
