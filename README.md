@@ -5,6 +5,8 @@
 
 uqlibrary-computers displays academic computers to the end user
 
+Documentation can be found in [GitHub Pages](http://uqlibrary.github.io/uqlibrary-computers/uqlibrary-computers/).
+
 ## Dev Setup
 
 Java 8 is required, as are `node` and `npm`. Check `package.json` for required versions.
@@ -19,6 +21,7 @@ bower install
 
 * Please adhere to the Polymer code style guide provided at [Style Guide](http://polymerelements.github.io/style-guide/).
 * Colors and common styles are imported (bower install) from [uqlibrary-styles](http://github.com/uqlibrary/uqlibrary-styles).
+* GitHub pages should be updated after every commit to `polymer1.0` branch by running `bin/generate-gh-pages.sh`
 
 ## Testing
 
