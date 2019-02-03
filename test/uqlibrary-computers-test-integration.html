@@ -77,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             element.$.computersApi.get();
         });
 
-        test('It should return correct floorplan url - SSAH Level 1 Entry', function (done) {
+        test('It should return correct floorplan url - Central Level 1 Entry', function (done) {
 
             element.addEventListener('uqlibrary-computers-loaded', function() {
 
@@ -85,7 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     // Select item
                     element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
                         flush(function() {
-                            // Select SSAH Level 1 Entry
+                            // Select Central Level 1 Entry
                             element.$$('#details').building = element.computers[9];
                             var item = {
                                 name: 'Level 1 Entry',
@@ -95,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                             element.addEventListener('uqlibrary-computer-floorplans-loaded', function (e) {
                                flush(function() {
-                                   assert.equal(element.$$('#floorplan')._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=SSAH&room=Link");
+                                   assert.equal(element.$$('#floorplan')._getFloorPlanUrl(), "https://www.library.uq.edu.au/uqlsm/map.php?building=Central&room=Link");
                                });
                             });
 
