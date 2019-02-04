@@ -85,11 +85,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     // Select item
                     element.addEventListener('uqlibrary-computer-details-loaded', function (e) {
                         flush(function() {
-                            // Select Central Level 1 Entry
-                            element.$$('#details').building = element.computers[9];
+                            // Select Central Level 1 Entry - the list is sorted by name.
+                            element.$$('#details').building = element.computers[2];
                             var item = {
                                 name: 'Level 1 Entry',
-                                item: element.computers[9].availability['Level 1 Entry']
+                                item: element.computers[2].availability['Level 1 Entry']
                             };
                             element.$$('#details').room = item;
 
@@ -103,7 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         });
 
                     });
-                    element._selectedItem = element.computers[9];
+                    element._selectedItem = element.computers[2];
 
                 }, 100);
             });
