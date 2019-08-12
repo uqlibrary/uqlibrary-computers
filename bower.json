@@ -1,11 +1,7 @@
 {
   "name": "uqlibrary-computers",
-  "version": "1.2.6",
-  "keywords": [
-    "seed",
-    "polymer",
-    "web-components"
-  ],
+  "version": "1.2.7",
+  "keywords": ["seed", "polymer", "web-components"],
   "private": true,
   "main": "index.html",
   "dependencies": {
@@ -17,13 +13,14 @@
     "uqlibrary-api": "uqlibrary/uqlibrary-api",
     "uqlibrary-ga": "uqlibrary/uqlibrary-ga",
     "uqlibrary-styles": "uqlibrary/uqlibrary-styles",
-    "lodash": "^3.10.1"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "web-component-tester": "*",
     "test-fixture": "PolymerElements/test-fixture#^1.1.2"
   },
   "resolutions": {
-    "test-fixture": "^1.1.2"
+    "test-fixture": "^1.1.2",
+    "lodash": "^4.17.15"
   }
 }
