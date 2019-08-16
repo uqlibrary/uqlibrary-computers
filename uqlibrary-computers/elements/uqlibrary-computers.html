@@ -1,0 +1,140 @@
+<link rel="import" href="elements.html">
+
+<!--
+`<uqlibrary-computers>` is a simple element that displays the availability of computers in the various libraries
+
+Example:
+
+    <uqlibrary-computers compact-view="false" auto-load="true"></uqlibrary-computers>
+
+@demo
+-->
+
+<dom-module id="uqlibrary-computers">
+  <template>
+    <style is="custom-style" include="common-styles">
+      :host {
+        @apply --uql-app-host;
+      }
+
+      /** Hack is in place to fix the width of the dropdown (full view mode) **/
+      paper-dropdown-menu.uqlibrary-computers iron-dropdown {
+        position: absolute;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+      }
+
+      #pages {
+        position: absolute;
+        top: 0;
+        right:0;
+        left:0;
+        bottom: 0;
+      }
+
+      /** Full View */
+      .back-arrow {
+        margin-right: 20px;
+      }
+    </style>
+
+    <!-- API & GA dependencies -->
+    <uqlibrary-api-account id="account"></uqlibrary-api-account>
+    <uqlibrary-api-computer-availability id="computersApi"></uqlibrary-api-computer-availability>
+    <uqlibrary-ga id="ga" app-name="[[_gaAppName]]"></uqlibrary-ga>
+
+    <!-- Compact View -->
+    <template is="dom-if" if="[[compactView]]">
+      <neon-animated-pages id="pages" selected="{{_selectedPage}}"
+                           entry-animation="[[entryAnimation]]"
+                           exit-animation="[[exitAnimation]]">
+        <!-- List view -->
+        <uqlibrary-computers-list-compact
+                id="computersList"
+                on-uqlibrary-computers-item-selected="_itemClicked"
+                items="{{computers}}">
+        </uqlibrary-computers-list-compact>
+        <!-- Detail view -->
+        <uqlibrary-computers-details-compact
+                id="details"
+                room="{{_selectedRoom}}"
+                building="{{_selectedItem}}"
+                on-close="_onClose"
+                on-floorplan="_onFloorPlan"
+                ga-app-name="[[_gaAppName]]">
+        </uqlibrary-computers-details-compact>
+        <uqlibrary-computers-floorplan
+                id="floorplan"
+                compact="true"
+                building="{{_selectedItem}}"
+                room="{{_selectedRoom}}"
+                on-close="_openDetailsView">
+        </uqlibrary-computers-floorplan>
+      </neon-animated-pages>
+    </template>
+
+    <!-- Full View -->
+    <template is="dom-if" if="[[!compactView]]">
+      <!-- Scaffolding -->
+      <div class="fit layout vertical">
+        <paper-header-panel class="flex">
+          <!-- Header -->
+          <paper-toolbar>
+            <!-- Toolbar -->
+            <template is="dom-if" if="[[!standAlone]]">
+              <template is="dom-if" if="[[!_backEnabled]]">
+                <paper-icon-button icon="menu"
+                                   on-tap="_toggleDrawerPanel"
+                                   title="open menu button"
+                                   aria-label="open menu button"
+                                   paper-drawer-toggle></paper-icon-button>
+              </template>
+            </template>
+            <template is="dom-if" if="[[_backEnabled]]">
+              <paper-icon-button
+                  class="back-arrow"
+                  icon="icons:arrow-back"
+                  on-tap="_goBack"
+                  role="button"
+                  aria-label="Go back to computers list">
+              </paper-icon-button>
+            </template>
+            <div class="title uqlibrary-app-title" title="[[_pageTitle]]">[[_pageTitle]]</div>
+          </paper-toolbar>
+          <!-- Content -->
+          <div class="fit">
+            <neon-animated-pages id="pages" selected="{{_selectedPage}}"
+                                 entry-animation="[[entryAnimation]]"
+                                 exit-animation="[[exitAnimation]]">
+              <!-- List view -->
+              <uqlibrary-computers-list
+                  id="computersList"
+                  on-uqlibrary-computers-item-selected="_itemClicked"
+                  items="{{computers}}">
+              </uqlibrary-computers-list>
+              <!-- Details view -->
+              <uqlibrary-computers-details
+                  id="details"
+                  room="{{_selectedRoom}}"
+                  building="{{_selectedItem}}"
+                  on-close="_onClose"
+                  on-floorplan="_onFloorPlan"
+                  ga-app-name="[[_gaAppName]]">
+              </uqlibrary-computers-details>
+              <uqlibrary-computers-floorplan
+                  id="floorplan"
+                  compact="false"
+                  building="{{_selectedItem}}"
+                  room="{{_selectedRoom}}"
+                  on-close="_openDetailsView">
+              </uqlibrary-computers-floorplan>
+            </neon-animated-pages>
+          </div>
+        </paper-header-panel>
+      </div>
+    </template>
+  </template>
+
+  <script src="uqlibrary-computers.js"></script>
+</dom-module>

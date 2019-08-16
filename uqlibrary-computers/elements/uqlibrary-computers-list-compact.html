@@ -1,0 +1,43 @@
+<link rel="import" href="elements.html">
+
+<!--
+`<uqlibrary-computers-list-compact>` is a helper element for `<uqlibrary-computers>`
+
+Example:
+
+    <uqlibrary-computers-list-compact items="{{items}}"></uqlibrary-computers-list-compact>
+-->
+
+<dom-module id="uqlibrary-computers-list-compact">
+    <template>
+        <style is="custom-style" include="common-styles">
+            :host {
+                font-family: var(--font-family);
+                font-size: var(--body-font-size);
+            }
+
+            .computers-available {
+                @apply --layout-flex-2;
+                text-align: center;
+            }
+        </style>
+
+        <div id="main">
+            <!-- <paper-item class="header" tabindex="-1">Available computers</paper-item> -->
+            <template is="dom-repeat" items="{{items}}">
+                <paper-item
+                        class="detail-item compact"
+                        on-click="_showDetailsView"
+                        aria-label$="{{item.library}} - {{item.totalAvailability.Available }} free computers">
+                    <div class="linked-item link body1">{{item.abbr}}</div>
+                    <div class="computers-available body1">
+                        {{ item.totalAvailability.Available }} free of {{ item.totalAvailability.total }}
+                    </div>
+                    <paper-ripple></paper-ripple>
+                </paper-item>
+            </template>
+        </div>
+    </template>
+
+    <script src="uqlibrary-computers-list-compact.js"></script>
+</dom-module>
