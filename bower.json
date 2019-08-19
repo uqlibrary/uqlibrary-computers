@@ -12,8 +12,7 @@
     "neon-animation": "PolymerElements/neon-animation#^1.1.0",
     "uqlibrary-api": "uqlibrary/uqlibrary-api",
     "uqlibrary-ga": "uqlibrary/uqlibrary-ga",
-    "uqlibrary-styles": "uqlibrary/uqlibrary-styles",
-    "lodash": "^4.17.15"
+    "uqlibrary-styles": "uqlibrary/uqlibrary-styles"
   },
   "devDependencies": {
     "web-component-tester": "*",
