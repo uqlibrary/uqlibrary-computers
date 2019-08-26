@@ -1,6 +1,6 @@
 {
   "name": "uqlibrary-computers",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "keywords": ["seed", "polymer", "web-components"],
   "private": true,
   "main": "index.html",
