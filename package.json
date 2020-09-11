@@ -8,8 +8,10 @@
     "test": "test"
   },
   "scripts": {
+    "postinstall": "bower update",
     "test": "polymer test",
-    "start": "polymer serve"
+    "start": "polymer serve",
+    "cleandeps": "THISDIR=${PWD##*/}; BOWERDEPS=$(ls ../ --hide=$THISDIR); cd ..; rm -rf $BOWERDEPS $THISDIR/node_modules"
   },
   "repository": {
     "type": "git",
